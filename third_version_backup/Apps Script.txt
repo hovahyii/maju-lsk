@@ -1,0 +1,46 @@
+const sheetName = 'Enquiry'; // Make sure this matches your Sheet tab name
+
+// List all emails here, separated by commas inside the quotes:
+const emailAddress = "inquiry@majulskgroup.com, syarikatandong@majulskgroup.com, ji-martenterprise@majulskgroup.com, iburia@majulskgroup.com, mgs@majulskgroup.com"; 
+
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+    const data = e.parameter;
+    
+    // 1. Add the new row to Google Sheets
+    const timestamp = new Date();
+    sheet.appendRow([
+      timestamp,
+      data.name,
+      data.email,
+      data.enquiry,
+      data.message
+    ]);
+    
+    // Your Google Sheet URL
+    const sheetUrl = "https://docs.google.com/spreadsheets/d/1DMfClJk-4fLxXEukurJJX2zEM67JOxI2i2sTUGNku1I/edit?gid=0#gid=0";
+    
+    // 2. Send the Email Alert to everyone
+    const subject = "New Website Enquiry: " + data.name;
+    const body = "You have received a new message from the Maju LSK website:\n\n" +
+                 "Name: " + data.name + "\n" +
+                 "Email: " + data.email + "\n" +
+                 "Enquiry Type: " + data.enquiry + "\n\n" +
+                 "Message:\n" + data.message + "\n\n" +
+                 "--------------------------------------------------\n" +
+                 "View all enquiries directly in Google Sheets:\n" + 
+                 sheetUrl;
+                 
+    const mailOptions = {
+      from: "inquiry@majulskgroup.com",
+      replyTo: "inquiry@majulskgroup.com",
+      name: "Maju LSK"
+    };
+    MailApp.sendEmail(emailAddress, subject, body, mailOptions);
+    
+    return ContentService.createTextOutput(JSON.stringify({"result":"success"})).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({"result":"error", "error": error})).setMimeType(ContentService.MimeType.JSON);
+  }
+}

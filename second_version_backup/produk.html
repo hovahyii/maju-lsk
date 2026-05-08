@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ms" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title data-i18n="seo_products_title">Produk & Jenama - Maju LSK Foodfare</title>
+    <meta name="description" data-i18n="seo_products_desc" content="Lihat rangkaian produk kami yang luas, termasuk barangan sejuk beku, bahan bakeri, tenusu, dan banyak lagi.">
+
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="icon" href="favicon_io/favicon.ico">
+    <meta name="author" content="Hovah Yii">
+    <link rel="author" href="https://hovahdigitalsolutions.com/">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .product-hierarchy { margin-top: var(--space-xl); }
+        .products-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 40px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .product-card { background: #fff; border: 1px solid #eee; border-radius: 12px; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .product-card-img { height: 180px; background: #fff; display: flex; align-items: center; justify-content: center; padding: 10px; }
+        .product-card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .product-card-body { padding: 15px; text-align: center; border-top: 1px solid #f9f9f9; flex-grow: 1; }
+        .product-brand { font-size: 0.7rem; font-weight: 700; color: var(--gold-600); text-transform: uppercase; letter-spacing: 0.5px; }
+        .product-card-body h4 { font-size: 0.9rem; margin: 5px 0; color: var(--blue-900); }
+        .product-card-body p { font-size: 0.75rem; color: #888; }
+        .product-disclaimer { text-align: center; margin-top: 50px; padding: 25px; background: var(--blue-50); border-radius: 12px; border: 1px dashed var(--blue-200); }
+        .product-disclaimer p { color: var(--blue-900); font-size: 0.95rem; }
+        .product-disclaimer a { color: var(--primary); font-weight: 700; text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <nav class="navbar navbar-solid" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <img src="logo.png" alt="Maju LSK Logo" width="40" height="40">
+                <span class="logo-text">Maju LSK</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" data-i18n="nav_home">Utama</a>
+                <a href="tentang-kami.html" data-i18n="nav_about">Tentang Kami</a>
+                <a href="produk.html" data-i18n="nav_products" class="active">Produk</a>
+                <a href="lokasi.html" data-i18n="nav_locations">Lokasi</a>
+                <a href="hubungi-kami.html" data-i18n="nav_contact">Hubungi Kami</a>
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-dropdown-toggle" id="langToggle">
+                        <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon" id="langFlag">
+                        <span id="langLabel">BM</span> <span class="chevron">▼</span>
+                    </button>
+                    <div class="lang-dropdown-menu" id="langMenu">
+                        <button class="lang-dropdown-item active" data-lang="ms">Bahasa Melayu</button>
+                        <button class="lang-dropdown-item" data-lang="en">English</button>
+                        <button class="lang-dropdown-item" data-lang="zh">中文</button>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <div style="height: 80px;"></div>
+
+<section class="section" id="products">
+    <div class="container">
+        <div class="section-header reveal" style="text-align: center; margin-bottom: 50px;">
+            <h2 data-i18n="prod_title">Produk & Jenama Kami</h2>
+            <div class="ornament" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 15px auto; width: 200px;">
+                <div class="ornament-diamond" style="width: 10px; height: 10px; background: var(--gold-500); transform: rotate(45deg);"></div>
+            </div>
+            <p data-i18n="prod_desc" style="max-width: 600px; margin: 0 auto;">Terokai rangkaian produk komprehensif kami mengikut kategori dan jenama asli.</p>
+        </div>
+
+        <div class="products-filter reveal" style="display:flex; gap:10px; justify-content:center; margin-bottom: 40px; flex-wrap: wrap;">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Semua</button>
+            <button class="filter-btn" data-filter="base" data-i18n="filter_base">Bahan Asas</button>
+            <button class="filter-btn" data-filter="beverage" data-i18n="filter_beverage">Minuman</button>
+            <button class="filter-btn" data-filter="chocolate" data-i18n="filter_chocolate">Coklat</button>
+            <button class="filter-btn" data-filter="cooking" data-i18n="filter_cooking">Bahan Masakan</button>
+            <button class="filter-btn" data-filter="fats-flour" data-i18n="filter_fats_flour">Lemak & Tepung</button>
+            <button class="filter-btn" data-filter="frozen" data-i18n="filter_frozen">Sejuk Beku</button>
+            <button class="filter-btn" data-filter="instant" data-i18n="filter_instant">Snek & Segera</button>
+            <button class="filter-btn" data-filter="consumables" data-i18n="filter_consumables">Keperluan Harian</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+
+            <div class="product-card reveal" data-category="base">
+                <div class="product-card-img"><img src="products/Base/Dried Fruit/Redman/Dried Cranberries.png" alt="Dried Cranberries"></div>
+                <div class="product-card-body"><span class="product-brand">Redman</span><h4>Dried Cranberries</h4><p>Dried Fruit</p></div>
+            </div>
+            <div class="product-card reveal" data-category="base">
+                <div class="product-card-img"><img src="products/Base/Nuts/entegre/Hazelnut Ground.png" alt="Hazelnut Ground"></div>
+                <div class="product-card-body"><span class="product-brand">Entegre</span><h4>Hazelnut Ground</h4><p>Nuts</p></div>
+            </div>
+            <div class="product-card reveal" data-category="base">
+                <div class="product-card-img"><img src="products/Base/Seeds/Hughson Nut Inc/Sunflower Seed.png" alt="Sunflower Seed"></div>
+                <div class="product-card-body"><span class="product-brand">Hughson Nut Inc</span><h4>Sunflower Seed</h4><p>Seeds</p></div>
+            </div>
+
+            <div class="product-card reveal" data-category="beverage">
+                <div class="product-card-img"><img src="products/Beverage/Coffee/Cap Televisyen Kluang Coffee/Kopi-O 2 in 1.png" alt="Kopi-O"></div>
+                <div class="product-card-body"><span class="product-brand">Cap Televisyen</span><h4>Kopi-O 2 in 1</h4><p>Coffee</p></div>
+            </div>
+            <div class="product-card reveal" data-category="beverage">
+                <div class="product-card-img"><img src="products/Beverage/Fruit Juice/Fresh N Sqz/Mango Passion (No Sugar Added).png" alt="Mango Passion"></div>
+                <div class="product-card-body"><span class="product-brand">Fresh N Sqz</span><h4>Mango Passion Juice</h4><p>Fruit Juice</p></div>
+            </div>
+            <div class="product-card reveal" data-category="beverage">
+                <div class="product-card-img"><img src="products/Beverage/Mineral Water/Volvic/Plain.png" alt="Volvic"></div>
+                <div class="product-card-body"><span class="product-brand">Volvic</span><h4>Plain Mineral Water</h4><p>Mineral Water</p></div>
+            </div>
+            <div class="product-card reveal" data-category="beverage">
+                <div class="product-card-img"><img src="products/Beverage/Vinegar Drinks/O'Food/Hong Cho Vinegar Drinks Blueberry.png" alt="Vinegar"></div>
+                <div class="product-card-body"><span class="product-brand">O'Food</span><h4>Blueberry Vinegar</h4><p>Vinegar Drink</p></div>
+            </div>
+
+            <div class="product-card reveal" data-category="chocolate">
+                <div class="product-card-img"><img src="products/Chocolate Products/Compound/Van Houten/Intense Dark Compound Block.png" alt="Dark Compound"></div>
+                <div class="product-card-body"><span class="product-brand">Van Houten</span><h4>Intense Dark Block</h4><p>Chocolate Compound</p></div>
+            </div>
+            <div class="product-card reveal" data-category="chocolate">
+                <div class="product-card-img"><img src="products/Chocolate Products/Couverture/Belcolade/Drops - Milk.png" alt="Milk Drops"></div>
+                <div class="product-card-body"><span class="product-brand">Belcolade</span><h4>Milk Couverture Drops</h4><p>Couverture</p></div>
+            </div>
+
+            <div class="product-card reveal" data-category="cooking">
+                <div class="product-card-img"><img src="products/Cooking Ingredients/Sauce/Samyang/Hot Chicken Buldak Sauce.png" alt="Buldak Sauce"></div>
+                <div class="product-card-body"><span class="product-brand">Samyang</span><h4>Hot Buldak Sauce</h4><p>Sauce</p></div>
+            </div>
+            <div class="product-card reveal" data-category="cooking">
+                <div class="product-card-img"><img src="products/Cooking Ingredients/Paste/Tean's Gourmet/Chicken Curry Paste.png" alt="Curry Paste"></div>
+                <div class="product-card-body"><span class="product-brand">Tean's Gourmet</span><h4>Chicken Curry Paste</h4><p>Paste</p></div>
+            </div>
+            <div class="product-card reveal" data-category="cooking">
+                <div class="product-card-img"><img src="products/Cooking Ingredients/Protein/Ayam Kens/Chicken Floss - Original.png" alt="Chicken Floss"></div>
+                <div class="product-card-body"><span class="product-brand">Ayam Kens</span><h4>Chicken Floss</h4><p>Protein</p></div>
+            </div>
+
+            <div class="product-card reveal" data-category="fats-flour">
+                <div class="product-card-img"><img src="products/Flour/Wheat Flour/Interflour/Bakers’ Choice Bread Flour.png" alt="Bread Flour"></div>
+                <div class="product-card-body"><span class="product-brand">Interflour</span><h4>Bread Flour</h4><p>Wheat Flour</p></div>
+            </div>
+            <div class="product-card reveal" data-category="fats-flour">
+                <div class="product-card-img"><img src="products/Fats/Cooking Oil/Cap Udang/Cooking Oil.png" alt="Cooking Oil"></div>
+                <div class="product-card-body"><span class="product-brand">Cap Udang</span><h4>Premium Cooking Oil</h4><p>Fats & Oil</p></div>
+            </div>
+            <div class="product-card reveal" data-category="fats-flour">
+                <div class="product-card-img"><img src="products/Flour/Rice Flour/Sunflower/Soon Kuay Flour.png" alt="Rice Flour"></div>
+                <div class="product-card-body"><span class="product-brand">Sunflower</span><h4>Soon Kuay Flour</h4><p>Rice Flour</p></div>
+            </div>
+
+            <div class="product-card reveal" data-category="frozen">
+                <div class="product-card-img"><img src="products/Frozen Food/French Fries/Lutosa/Straight Cut- Rustic.png" alt="Rustic Fries"></div>
+                <div class="product-card-body"><span class="product-brand">Lutosa</span><h4>Straight Cut Rustic</h4><p>French Fries</p></div>
+            </div>
+            <div class="product-card reveal" data-category="frozen">
+                <div class="product-card-img"><img src="products/Frozen Food/Pizza/michigan/Beef Pepperoni.png" alt="Pizza"></div>
+                <div class="product-card-body"><span class="product-brand">Michigan</span><h4>Beef Pepperoni Pizza</h4><p>Frozen Pizza</p></div>
+            </div>
+            <div class="product-card reveal" data-category="frozen">
+                <div class="product-card-img"><img src="products/Frozen Food/Seafood/Bibigo/Mandu Beef Bulgogi.png" alt="Mandu"></div>
+                <div class="product-card-body"><span class="product-brand">Bibigo</span><h4>Beef Bulgogi Mandu</h4><p>Seafood</p></div>
+            </div>
+            <div class="product-card reveal" data-category="frozen">
+                <div class="product-card-img"><img src="products/Frozen Food/Vegan/VegeWorld/Vege Roasted Chicken.png" alt="Vege Chicken"></div>
+                <div class="product-card-body"><span class="product-brand">VegeWorld</span><h4>Vege Roasted Chicken</h4><p>Vegan Food</p></div>
+            </div>
+
+            <div class="product-card reveal" data-category="instant">
+                <div class="product-card-img"><img src="products/Instant Food/Instant Noodles/Nongshim/Shin Ramyun Noodle Soup.png" alt="Shin Ramyun"></div>
+                <div class="product-card-body"><span class="product-brand">Nongshim</span><h4>Shin Ramyun Soup</h4><p>Instant Noodles</p></div>
+            </div>
+            <div class="product-card reveal" data-category="instant">
+                <div class="product-card-img"><img src="products/Instant Food/Snacks/Win2/Potato Crisp Tomato.png" alt="Potato Crisp"></div>
+                <div class="product-card-body"><span class="product-brand">Win2</span><h4>Potato Crisp Tomato</h4><p>Snacks</p></div>
+            </div>
+            <div class="product-card reveal" data-category="instant">
+                <div class="product-card-img"><img src="products/Instant Food/Desserts/Cozzo/Pudding Lychee.png" alt="Lychee Pudding"></div>
+                <div class="product-card-body"><span class="product-brand">Cozzo</span><h4>Pudding Lychee</h4><p>Dessert</p></div>
+            </div>
+
+            <div class="product-card reveal" data-category="consumables">
+                <div class="product-card-img"><img src="products/Consumables/Diapers/Genki!/Genki Tape Mega New Born.png" alt="Genki"></div>
+                <div class="product-card-body"><span class="product-brand">Genki!</span><h4>Genki Tape Mega NB</h4><p>Diapers</p></div>
+            </div>
+            <div class="product-card reveal" data-category="consumables">
+                <div class="product-card-img"><img src="products/Consumables/Tissues/Scott/Compact Towel Standard.png" alt="Scott Towel"></div>
+                <div class="product-card-body"><span class="product-brand">Scott</span><h4>Compact Towel</h4><p>Hygiene/Tissues</p></div>
+            </div>
+            <div class="product-card reveal" data-category="consumables">
+                <div class="product-card-img"><img src="products/Consumables/Animal Feed/Cargill/Rabbit Breeder Protein.png" alt="Rabbit Feed"></div>
+                <div class="product-card-body"><span class="product-brand">Cargill</span><h4>Rabbit Breeder Feed</h4><p>Animal Feed</p></div>
+            </div>
+        </div>
+
+        <div class="product-disclaimer reveal" style="text-align: center; margin-top: 60px; padding: 30px; background: var(--blue-50); border-radius: 12px; border: 1px dashed var(--blue-200);">
+            <p data-i18n-html="prod_disclaimer">
+                <strong>Penafian:</strong> Tidak semua produk dipaparkan dalam senarai ini. Sila rujuk katalog produk rasmi kami untuk maklumat lanjut dan senarai produk yang lengkap.
+            </p>
+        </div>
+    </div>
+</section>
+
+ <section class="section section-alt" id="brands">
+        <div class="container">
+            
+            <div class="section-header reveal">
+                <h2 data-i18n="brands_title">Jenama Dipercayai</h2>
+                <div class="ornament"><div class="ornament-diamond"></div></div>
+                <p data-i18n="brands_desc">Kami bekerja dengan jenama terkemuka di peringkat global untuk menjamin kualiti.</p>
+            </div>
+
+            <div class="brands-filter reveal" style="display:flex; gap:10px; justify-content:center; margin-bottom: 40px; flex-wrap: wrap;">
+                <button class="brand-filter-btn active" data-filter="all" data-i18n="brand_filter_all">Semua</button>
+                <button class="brand-filter-btn" data-filter="andong" data-i18n="brand_filter_andong">Syarikat Andong</button>
+                <button class="brand-filter-btn" data-filter="jimart" data-i18n="brand_filter_jimart">Ji-Mart Enterprise</button>
+            </div>
+
+            <div class="brands-grid stagger-children">
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/agromas.webp" alt="Agromas" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/ak.webp" alt="AK" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/akk.webp" alt="AKK" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/backaldrin.webp" alt="Backaldrin" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/bakels.webp" alt="Bakels" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/belcolade.webp" alt="Belcolade" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/callebaut.webp" alt="Callebaut" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/cap-mee-udang.webp" alt="Cap Mee Udang" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/cap-udang.webp" alt="Cap Udang" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/cargill.webp" alt="Cargill" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/chin kitchen.webp" alt="Chin Kitchen" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/eggtech.webp" alt="Eggtech" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/ever-whip.webp" alt="Ever Whip" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/gardens.webp" alt="Gardens" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/greenhouse.webp" alt="Greenhouse" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/happy.webp" alt="Happy" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/hiestand.webp" alt="Hiestand" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/interflour.webp" alt="Interflour" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/jade-leaf.webp" alt="Jade Leaf" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/jongga.webp" alt="Jongga" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/kawan.webp" alt="Kawan" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/kimberly-clark.webp" alt="Kimberly Clark" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/nbi.webp" alt="NBI" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/no1.webp" alt="No 1" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/ofood.webp" alt="O'Food" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/opencountry.webp" alt="Open Country" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/rnr.webp" alt="RNR" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/safcol.webp" alt="Safcol" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/sampan.webp" alt="Sampan" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/samyang.webp" alt="Samyang" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/sky blue.webp" alt="Sky Blue" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/star brand.webp" alt="Star Brand" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/sunflower.webp" alt="Sunflower" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/teans gourment.webp" alt="Teans Gourmet" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/van-houten.webp" alt="Van Houten" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/vivo.webp" alt="Vivo" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/win2.webp" alt="Win2" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="jimart"><img src="brands/Ji-mart enterprise/you-ai.webp" alt="You Ai" loading="lazy"></div>
+
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/anchor.webp" alt="Anchor" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/arbella.webp" alt="Arbella" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/aroma.webp" alt="Aroma" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/bezt.webp" alt="Bezt" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/bibigo.webp" alt="Bibigo" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/brumee.webp" alt="Brumee" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/cafe-latte.webp" alt="Cafe Latte" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/cap-televisyen.webp" alt="Cap Televisyen" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/charcoal.webp" alt="Charcoal" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/cozzo.webp" alt="Cozzo" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/d-jack.webp" alt="D-Jack" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/dtt.webp" alt="DTT" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/easy-meal-everyday.webp" alt="Easy Meal Everyday" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/freshnsoz.webp" alt="Fresh N Soz" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/genki.webp" alt="Genki!" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/kitasama.webp" alt="Kitasama" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/lutosa.webp" alt="Lutosa" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/michigan.webp" alt="Michigan" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/miga.webp" alt="Miga" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/minni.webp" alt="Minni" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/mykuali.webp" alt="MyKuali" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/nongshim.webp" alt="Nongshim" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/nutrifries.webp" alt="Nutrifries" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/see-u.webp" alt="See U" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/sifu.webp" alt="Sifu" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/starmax.webp" alt="Starmax" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/taukyung.webp" alt="Taukyung" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/tmfoods.webp" alt="TM Foods" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/tricious.webp" alt="Tricious" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/VegeWorld.webp" alt="VegeWorld" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/visvita.webp" alt="Visvita" loading="lazy"></div>
+                <div class="brand-item brand-logo-card reveal" data-company="andong"><img src="brands/Syarikat Andong/volvic.webp" alt="Volvic" loading="lazy"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="locations">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 data-i18n="loc_title">Lokasi Kami</h2>
+                <div class="ornament"><div class="ornament-diamond"></div></div>
+                <p data-i18n="loc_desc">Cari ibu pejabat dan kedai-kedai kami di seluruh Brunei Darussalam.</p>
+            </div>
+
+            <div class="map-layout">
+                <div class="map-main">
+                    <div class="map-wrapper reveal" id="mapWrapper">
+                        <iframe id="mapIframe"
+                            src="https://maps.google.com/maps?q=Maju+LSK+Sdn+Bhd&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <div class="map-info-cards stagger-children">
+                        <div class="map-info-card reveal active" data-map-query="Ji-Mart+Enterprise+Mulaut+Brunei" data-map-zoom="16" data-person="andong">
+                            <h4>📍 <span data-i18n="loc_andong">Syarikat Andong</span></h4>
+                            <p data-i18n="loc_andong_addr">Mulaut Industrial Parkland, Unit 1-6, Blok L, Simpang 113, Jalan Ban 5, Kg Mulaut, Mukim Sengkurong, BG2121 Brunei Darussalam.</p>
+                            <a href="https://www.facebook.com/profile.php?id=534119237053865" target="_blank" class="map-card-link"><i class="fa-brands fa-facebook"></i></a>
+                        </div>
+                        <div class="map-info-card reveal" data-map-query="Ji-Mart+Enterprise+Mulaut+Brunei" data-map-zoom="16" data-person="jimart">
+                            <h4>🏭 <span data-i18n="loc_jimart">Ji-Mart Enterprise</span></h4>
+                            <p data-i18n="loc_jimart_addr">Mulaut Industrial Parkland, Brunei Darussalam</p>
+                            <a href="https://www.instagram.com/jimartent.brunei/" target="_blank" class="map-card-link"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                        <div class="map-info-card reveal" data-map-query="Iburia+Sdn+Bhd+Brunei" data-map-zoom="15" data-person="iburia">
+                            <h4>🏪 <span data-i18n="loc_iburia">Iburia Sdn Bhd</span></h4>
+                            <p data-i18n="loc_iburia_addr">Brunei Darussalam</p>
+                            <a href="https://www.facebook.com/p/Iburia-Sdn-Bhd-100084298474926/" target="_blank" class="map-card-link"><i class="fa-brands fa-facebook"></i></a>
+                        </div>
+                        <div class="map-info-card reveal" data-map-query="Mas+Grocery+Store+Brunei" data-map-zoom="15" data-person="mgs">
+                            <h4>🛒 <span data-i18n="loc_mgs">Mas Grocery Store (MGS)</span></h4>
+                            <p data-i18n="loc_mgs_addr">Brunei Darussalam</p>
+                            <a href="https://www.facebook.com/p/Mas-Grocery-Store-100067243820683/" target="_blank" class="map-card-link"><i class="fa-brands fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="person-panel reveal" id="personPanel">
+                    <div class="person-panel-header"><h4 data-i18n="pic_title">Pegawai Bertanggungjawab</h4></div>
+                    <div class="person-panel-body" id="personPanelBody">
+                        <div class="person-avatar">👤</div>
+                        <div class="person-name" id="personName">Encik Sam Ying Kok</div>
+                        <div class="person-role" id="personRole">Pengasas & CEO</div>
+                        <div class="person-contact-item"><div class="pic-icon">📞</div><span id="personPhone">+673 267 1161</span></div>
+                        <div class="person-contact-item"><div class="pic-icon">✉️</div><span id="personEmail">admin@majulskgroup.com</span></div>
+                        <div class="person-contact-item"><div class="pic-icon">🕐</div><span id="personHours">Isnin - Sabtu: 8pg - 5ptg</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p data-i18n="footer_rights">© 2024 Maju LSK Logistics and Foodfare Sdn Bhd. Hak cipta terpelihara.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

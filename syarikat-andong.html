@@ -95,57 +95,60 @@
 <body>
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <nav class="navbar navbar-solid" id="navbar">
-        <div class="container">
-            <a href="index.html" class="nav-logo nav-logo-long">
-                <img src="logo/logo.webp" alt="Maju LSK Logo" width="40" height="40" loading="eager">
-                <span class="logo-text">
-                    <span class="logo-acronym">Maju LSK</span>
-                    <span class="logo-full">Logistics and Foodfare Sdn Bhd</span>
-                </span>
-            </a>
+    <header class="header">
+        <nav class="navbar navbar-solid" id="navbar">
+            <div class="container">
+                <a href="index.html" class="nav-logo nav-logo-long">
+                    <img src="logo/logo.webp" alt="Maju LSK Logo" width="40" height="40" loading="eager">
+                    <span class="logo-text">
+                        <span class="logo-acronym">Maju LSK</span>
+                        <span class="logo-full">Logistics and Foodfare Sdn Bhd</span>
+                    </span>
+                </a>
 
-            <div class="nav-links" id="navLinks">
-                <a href="index.html" data-i18n="nav_home">Utama</a>
-                <a href="about-us.html" data-i18n="nav_about">Tentang Kami</a>
-                <a href="products.html" data-i18n="nav_products">Produk</a>
-                <a href="locations.html" data-i18n="nav_locations">Lokasi</a>
-                <a href="contact-us.html" data-i18n="nav_contact">Hubungi Kami</a>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html" data-i18n="nav_home">Utama</a>
+                    <a href="about-us.html" data-i18n="nav_about">Tentang Kami</a>
+                    <a href="products.html" data-i18n="nav_products">Produk</a>
+                    <a href="locations.html" data-i18n="nav_locations">Lokasi</a>
+                    <a href="contact-us.html" data-i18n="nav_contact">Hubungi Kami</a>
 
-                <div class="lang-dropdown" id="langDropdown">
-                    <button class="lang-dropdown-toggle" id="langToggle" aria-label="Language">
-                        <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon" id="langFlag">
-                        <span id="langLabel">EN</span>
-                        <span class="chevron">▼</span>
-                    </button>
-                    <div class="lang-dropdown-menu" id="langMenu">
-                        <button class="lang-dropdown-item" data-lang="ms">
-                            <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon">
-                            Bahasa Melayu
-                            <span class="check" style="visibility:hidden">✓</span>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-dropdown-toggle" id="langToggle" aria-label="Language">
+                            <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon" id="langFlag">
+                            <span id="langLabel">EN</span>
+                            <span class="chevron">▼</span>
                         </button>
-                        <button class="lang-dropdown-item active" data-lang="en">
-                            <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon">
-                            English
-                            <span class="check">✓</span>
-                        </button>
-                        <button class="lang-dropdown-item" data-lang="zh">
-                            <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon">
-                            中文
-                            <span class="check" style="visibility:hidden">✓</span>
-                        </button>
+                        <div class="lang-dropdown-menu" id="langMenu">
+                            <button class="lang-dropdown-item" data-lang="ms">
+                                <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon">
+                                Bahasa Melayu
+                                <span class="check" style="visibility:hidden">✓</span>
+                            </button>
+                            <button class="lang-dropdown-item active" data-lang="en">
+                                <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon">
+                                English
+                                <span class="check">✓</span>
+                            </button>
+                            <button class="lang-dropdown-item" data-lang="zh">
+                                <img src="https://flagcdn.com/w40/bn.png" alt="Brunei" class="flag-icon">
+                                中文
+                                <span class="check" style="visibility:hidden">✓</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
+        </nav>
+    </header>
 
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
+    <main>
     <div style="height: 80px;"></div>
 
     <section class="section" id="andong-details">
@@ -189,6 +192,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="footer">
         <div class="container">

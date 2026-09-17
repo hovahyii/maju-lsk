@@ -327,10 +327,13 @@ p {
   color: var(--gray-800);
 }
 
-.nav-links a:hover,
+.nav-links a:hover {
+  color: var(--white);
+}
+
 .navbar.scrolled .nav-links a:hover,
 .navbar.navbar-solid .nav-links a:hover {
-  color: var(--primary);
+  color: var(--gray-800);
 }
 
 .nav-links a::after {
@@ -344,6 +347,7 @@ p {
   transition: width var(--transition-normal);
 }
 
+.nav-links a:hover::after,
 .nav-links a.active::after {
   width: 100%;
 }
@@ -355,7 +359,7 @@ p {
 
 .navbar.scrolled .nav-links a.active,
 .navbar.navbar-solid .nav-links a.active {
-  color: var(--primary);
+  color: var(--gray-800);
 }
 
 .lang-dropdown {

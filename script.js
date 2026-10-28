@@ -83,7 +83,10 @@ const personData = {
 // ============ LANGUAGE SWITCHER ============
 const urlParams = new URLSearchParams(window.location.search);
 const urlLang = urlParams.get('lang');
-let currentLang = urlLang || localStorage.getItem('maju-lang') || 'en';
+const supportedLanguages = ['ms', 'en', 'zh'];
+const defaultLang = document.documentElement.lang || 'ms';
+const baseCanonical = document.querySelector('link[rel="canonical"]')?.href;
+let currentLang = supportedLanguages.includes(urlLang) ? urlLang : defaultLang;
 
 const langLabels = {
   ms: "BM",
@@ -114,8 +117,16 @@ function applyTranslations(t) {
     if (t[key]) el.innerHTML = t[key];
   });
 
+  // Keep each page's translated metadata and language URL in sync.
   const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc && t.seo_home_desc) metaDesc.setAttribute('content', t.seo_home_desc);
+  const canonical = baseCanonical ? new URL(baseCanonical) : null;
+  if (canonical && currentLang !== defaultLang) canonical.searchParams.set('lang', currentLang);
+  if (canonical) document.querySelector('link[rel="canonical"]').href = canonical.href;
+  for (const prefix of ['og', 'twitter']) {
+    document.querySelector(`meta[property="${prefix}:title"]`)?.setAttribute('content', document.title);
+    if (metaDesc) document.querySelector(`meta[property="${prefix}:description"]`)?.setAttribute('content', metaDesc.content);
+    if (canonical) document.querySelector(`meta[property="${prefix}:url"]`)?.setAttribute('content', canonical.href);
+  }
 
   const langLabel = document.getElementById('langLabel');
   if (langLabel) langLabel.textContent = langLabels[currentLang] || currentLang.toUpperCase();
@@ -133,6 +144,7 @@ function applyTranslations(t) {
 }
 
 function setLanguage(lang) {
+  if (!supportedLanguages.includes(lang)) lang = defaultLang;
   currentLang = lang;
   localStorage.setItem('maju-lang', lang);
   
@@ -882,8 +894,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('js-enabled');
 
   try {
-    const savedLang = localStorage.getItem('maju-lang') || 'ms';
-    setLanguage(savedLang);
+    // Explicit language URLs must win over a previously saved preference.
+    setLanguage(currentLang);
 
     const hasSidebarFilters = document.getElementById('filterCategory');
     initLangDropdown();

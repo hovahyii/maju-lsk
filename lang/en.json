@@ -206,5 +206,9 @@
     "person_andong_role": "Dairy & Frozen Distributor",
     "person_iburia_role": "Retail & Distribution",
     "person_mgs_role": "Retail Store",
-    "prod_disclaimer": "<strong>Disclaimer:</strong> Not all products are displayed in this list. Please refer to our official <span style=\"color: var(--primary); font-weight: bold;\">product catalog</span> for more details and a complete product list."
+    "prod_disclaimer": "<strong>Disclaimer:</strong> Not all products are displayed in this list. Please refer to our official <span style=\"color: var(--primary); font-weight: bold;\">product catalog</span> for more details and a complete product list.",
+    "seo_jimart_title": "Ji-Mart Enterprise - Maju LSK Subsidiary",
+    "seo_jimart_desc": "Ji-Mart Enterprise is your one-stop shop for flour, chocolate, bakery ingredients, and paper products in Brunei. A subsidiary of Maju LSK.",
+    "seo_andong_title": "Syarikat Andong - Maju LSK Subsidiary",
+    "seo_andong_desc": "Syarikat Andong is a subsidiary of Maju LSK Logistic & Food Fare Sdn Bhd and the sole distributor for Genki! Baby Diaper in Brunei."
 }

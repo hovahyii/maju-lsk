@@ -44,7 +44,7 @@ Options -Indexes
 </FilesMatch>
 
 # 6. Security: Deny access to sensitive files (OVERRIDE)
-<FilesMatch "(\.env|\.ini|\.log|\.sql|db\.php|generate_sql\.js)$">
+<FilesMatch "(\.env|\.ini|\.log|\.sql|db\.php|config\.php|secrets\.php|generate_sql\.js)$">
     Require all denied
 </FilesMatch>
 

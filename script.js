@@ -680,6 +680,24 @@ function initProductSidebarFilters() {
         });
       }
 
+      // Pre-select filters from URL query parameters (e.g. from AI Product Assistant)
+      const qCat = urlParams.get('category') || '';
+      const qSub = urlParams.get('subcategory') || '';
+      const qBrand = urlParams.get('brand') || '';
+
+      if (qCat && maps.categories.has(qCat)) {
+        categorySelect.value = qCat;
+        const subMap = maps.subcategories.get(qCat) || new Map();
+        populateSubcategoryOptions(subMap);
+      }
+      if (qSub) {
+        subcategorySelect.value = qSub;
+      }
+      populateBrandOptions(getCurrentBrandMap());
+      if (qBrand) {
+        brandSelect.value = qBrand;
+      }
+
       applyFilters();
     })
     .catch(() => {
@@ -917,6 +935,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventSlideshow();
     initEventsAutoScroll();
     initScrollTopBtn();
+    initAIChatbot();
   } catch (err) {
     console.error('Critical initialization error:', err);
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children').forEach(el => {
@@ -924,3 +943,419 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+// ============ AI PRODUCT ASSISTANT CHATBOT (Clerk.io-style) ============
+function initAIChatbot() {
+  if (document.getElementById('aiChatLauncher')) return;
+
+  const CHAT_STORAGE_KEY = 'maju_ai_chat_history_v1';
+
+  const i18nCopy = {
+    en: {
+      tooltip: 'Ask AI about our products',
+      title: 'Maju LSK Product AI',
+      status: 'Delivering Promise, Every Single Mile',
+      placeholder: 'Ask about products, brands, or categories...',
+      welcome: 'Hi! I’m the Maju LSK Product AI. Ask me anything about our wholesale food, bakery ingredients, frozen foods, or brands in our catalog.',
+      chips: [
+        'What frozen foods do you carry?',
+        'Show me Callebaut chocolate',
+        'Do you supply cooking oil?',
+        'List your flour & baking brands'
+      ],
+      clearTitle: 'Clear conversation',
+      closeTitle: 'Close chat',
+      errorMsg: 'Sorry, I could not reach the product assistant right now. Please try again in a moment.'
+    },
+    ms: {
+      tooltip: 'Tanya AI tentang produk kami',
+      title: 'AI Produk Maju LSK',
+      status: 'Menunaikan Janji, Setiap Batu Perjalanan',
+      placeholder: 'Tanya tentang produk, jenama, atau kategori...',
+      welcome: 'Hai! Saya pembantu AI Produk Maju LSK. Tanya saya tentang bahan makanan borong, bahan bakeri, makanan sejuk beku, atau jenama dalam katalog kami.',
+      chips: [
+        'Apakah makanan sejuk beku yang ada?',
+        'Tunjukkan produk coklat Callebaut',
+        'Adakah anda membekalkan minyak masak?',
+        'Senaraikan tepung & bahan bakeri'
+      ],
+      clearTitle: 'Padam perbualan',
+      closeTitle: 'Tutup sembang',
+      errorMsg: 'Maaf, pembantu produk tidak dapat dihubungi buat masa ini. Sila cuba sebentar lagi.'
+    },
+    zh: {
+      tooltip: '向 AI 询问产品目录',
+      title: 'Maju LSK 产品 AI 助手',
+      status: '信守承诺，使命必达',
+      placeholder: '搜索产品、品牌或分类...',
+      welcome: '您好！我是 Maju LSK 产品 AI 助手。欢迎向我查询我们的批发食品、烘焙原料、冷冻食品或代理品牌。',
+      chips: [
+        '你们有哪些冷冻食品？',
+        '查看 Callebaut 巧克力产品',
+        '有供应食用油或人造黄油吗？',
+        '列出面粉和烘焙原料品牌'
+      ],
+      clearTitle: '清空对话',
+      closeTitle: '关闭聊天',
+      errorMsg: '抱歉，暂时无法连接到产品助手，请稍后再试。'
+    }
+  };
+
+  const getCopy = () => i18nCopy[currentLang] || i18nCopy.en;
+
+  // Build Launcher Button
+  const launcher = document.createElement('button');
+  launcher.id = 'aiChatLauncher';
+  launcher.type = 'button';
+  launcher.className = 'ai-chat-launcher';
+  launcher.setAttribute('aria-label', getCopy().tooltip);
+  launcher.innerHTML = `
+    <span class="ai-chat-tooltip"></span>
+    <span class="ai-chat-badge">AI</span>
+    <img src="logo/lsk.png" alt="Maju LSK AI" class="ai-icon-chat ai-launcher-logo" />
+    <svg class="ai-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  `;
+
+  // Build Chat Panel
+  const panel = document.createElement('section');
+  panel.id = 'aiChatPanel';
+  panel.className = 'ai-chat-panel';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', getCopy().title);
+  panel.innerHTML = `
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-info">
+        <div class="ai-chat-avatar" aria-hidden="true">
+          <img src="logo/lsk.png" alt="Maju LSK" />
+        </div>
+        <div class="ai-chat-title-wrap">
+          <h3 class="ai-chat-title"></h3>
+          <div class="ai-chat-status">
+            <span class="ai-chat-status-dot"></span>
+            <span class="ai-chat-status-text"></span>
+          </div>
+        </div>
+      </div>
+      <div class="ai-chat-header-actions">
+        <button type="button" class="ai-chat-icon-btn ai-chat-clear" aria-label="Clear">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            <path d="M10 11v6"></path>
+            <path d="M14 11v6"></path>
+          </svg>
+        </button>
+        <button type="button" class="ai-chat-icon-btn ai-chat-close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="ai-chat-messages" id="aiChatMessages"></div>
+    <form class="ai-chat-input-bar" id="aiChatForm">
+      <input type="text" class="ai-chat-input" id="aiChatInput" autocomplete="off" maxlength="500" />
+      <button type="submit" class="ai-chat-send" id="aiChatSend" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+  `;
+
+  document.body.appendChild(panel);
+  document.body.appendChild(launcher);
+
+  const tooltipEl = launcher.querySelector('.ai-chat-tooltip');
+  const iconChat = launcher.querySelector('.ai-icon-chat');
+  const iconClose = launcher.querySelector('.ai-icon-close');
+  const titleEl = panel.querySelector('.ai-chat-title');
+  const statusEl = panel.querySelector('.ai-chat-status-text');
+  const clearBtn = panel.querySelector('.ai-chat-clear');
+  const closeBtn = panel.querySelector('.ai-chat-close');
+  const messagesEl = panel.querySelector('#aiChatMessages');
+  const formEl = panel.querySelector('#aiChatForm');
+  const inputEl = panel.querySelector('#aiChatInput');
+  const sendBtn = panel.querySelector('#aiChatSend');
+
+  let isOpen = false;
+  let isBusy = false;
+  let conversation = [];
+
+  try {
+    const saved = sessionStorage.getItem(CHAT_STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) conversation = parsed;
+    }
+  } catch (e) {
+    conversation = [];
+  }
+
+  function saveConversation() {
+    try {
+      sessionStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(conversation.slice(-20)));
+    } catch (e) {
+      // Ignore storage quota errors
+    }
+  }
+
+  function syncLabels() {
+    const c = getCopy();
+    tooltipEl.textContent = c.tooltip;
+    launcher.setAttribute('aria-label', c.tooltip);
+    titleEl.textContent = c.title;
+    statusEl.textContent = c.status;
+    inputEl.placeholder = c.placeholder;
+    clearBtn.title = c.clearTitle;
+    closeBtn.title = c.closeTitle;
+  }
+
+  // Safe inline text formatter (supports **bold** and bullet lines without innerHTML XSS)
+  function renderFormattedText(container, text) {
+    const lines = String(text || '').split(/\r?\n/);
+    let currentList = null;
+
+    const appendInline = (parent, lineText) => {
+      const parts = lineText.split(/(\*\*[^*]+\*\*)/g);
+      parts.forEach(part => {
+        if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+          const strong = document.createElement('strong');
+          strong.textContent = part.slice(2, -2);
+          parent.appendChild(strong);
+        } else if (part) {
+          parent.appendChild(document.createTextNode(part));
+        }
+      });
+    };
+
+    lines.forEach(rawLine => {
+      const line = rawLine.trim();
+      if (!line) {
+        currentList = null;
+        return;
+      }
+      if (/^[-*•]\s+/.test(line)) {
+        if (!currentList) {
+          currentList = document.createElement('ul');
+          container.appendChild(currentList);
+        }
+        const li = document.createElement('li');
+        appendInline(li, line.replace(/^[-*•]\s+/, ''));
+        currentList.appendChild(li);
+      } else {
+        currentList = null;
+        const p = document.createElement('p');
+        appendInline(p, line);
+        container.appendChild(p);
+      }
+    });
+  }
+
+  function buildProductCard(product) {
+    const card = document.createElement('a');
+    card.className = 'ai-chat-product-card';
+
+    const qp = new URLSearchParams();
+    if (product.category_slug) qp.set('category', product.category_slug);
+    if (product.subcategory_slug) qp.set('subcategory', product.subcategory_slug);
+    if (product.brand_slug) qp.set('brand', product.brand_slug);
+    if (currentLang && currentLang !== 'ms') qp.set('lang', currentLang);
+    card.href = `products.html${qp.toString() ? '?' + qp.toString() : ''}`;
+
+    const thumb = document.createElement('div');
+    thumb.className = 'ai-chat-product-thumb';
+    const img = document.createElement('img');
+    img.src = product.image_url || 'logo/lsk.png';
+    img.alt = product.name || 'Product';
+    img.loading = 'lazy';
+    img.onerror = () => { img.src = 'logo/lsk.png'; };
+    thumb.appendChild(img);
+
+    const info = document.createElement('div');
+    info.className = 'ai-chat-product-info';
+
+    if (product.brand_name) {
+      const brand = document.createElement('span');
+      brand.className = 'ai-chat-product-brand';
+      brand.textContent = product.brand_name;
+      info.appendChild(brand);
+    }
+
+    const name = document.createElement('div');
+    name.className = 'ai-chat-product-name';
+    name.textContent = product.name || '';
+    info.appendChild(name);
+
+    const catText = product.subcategory_name || product.category_name || '';
+    if (catText) {
+      const cat = document.createElement('div');
+      cat.className = 'ai-chat-product-cat';
+      cat.textContent = catText;
+      info.appendChild(cat);
+    }
+
+    card.appendChild(thumb);
+    card.appendChild(info);
+    return card;
+  }
+
+  function appendMessageElement(role, text, products = []) {
+    const wrapper = document.createElement('div');
+    wrapper.className = `ai-chat-msg ${role}`;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'ai-chat-bubble';
+    renderFormattedText(bubble, text);
+    wrapper.appendChild(bubble);
+
+    if (role === 'assistant' && Array.isArray(products) && products.length > 0) {
+      const grid = document.createElement('div');
+      grid.className = 'ai-chat-products';
+      products.forEach(p => grid.appendChild(buildProductCard(p)));
+      wrapper.appendChild(grid);
+    }
+
+    messagesEl.appendChild(wrapper);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function renderAllMessages() {
+    messagesEl.innerHTML = '';
+    const c = getCopy();
+    appendMessageElement('assistant', c.welcome);
+
+    if (conversation.length === 0) {
+      const chipsWrap = document.createElement('div');
+      chipsWrap.className = 'ai-chat-chips';
+      c.chips.forEach(chipText => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'ai-chat-chip';
+        chip.textContent = chipText;
+        chip.addEventListener('click', () => {
+          if (!isBusy) sendMessage(chipText);
+        });
+        chipsWrap.appendChild(chip);
+      });
+      messagesEl.appendChild(chipsWrap);
+    } else {
+      conversation.forEach(item => {
+        appendMessageElement(item.role, item.content, item.products || []);
+      });
+    }
+  }
+
+  function showTyping() {
+    const typingWrap = document.createElement('div');
+    typingWrap.className = 'ai-chat-msg assistant';
+    typingWrap.id = 'aiChatTyping';
+    typingWrap.innerHTML = '<div class="ai-chat-typing"><span></span><span></span><span></span></div>';
+    messagesEl.appendChild(typingWrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function hideTyping() {
+    const el = document.getElementById('aiChatTyping');
+    if (el) el.remove();
+  }
+
+  async function sendMessage(text) {
+    const clean = text.trim();
+    if (!clean || isBusy) return;
+
+    // Remove starter chips if visible
+    const chips = messagesEl.querySelector('.ai-chat-chips');
+    if (chips) chips.remove();
+
+    isBusy = true;
+    sendBtn.disabled = true;
+    inputEl.value = '';
+
+    const historyPayload = conversation.slice(-6).map(m => ({
+      role: m.role,
+      content: m.content
+    }));
+
+    conversation.push({ role: 'user', content: clean });
+    saveConversation();
+    appendMessageElement('user', clean);
+    showTyping();
+
+    try {
+      const res = await fetch('api/chat.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: clean,
+          history: historyPayload,
+          lang: currentLang || 'en'
+        })
+      });
+
+      const data = await res.json();
+      hideTyping();
+
+      if (!res.ok || !data || !data.reply) {
+        throw new Error(data?.error || 'Request failed');
+      }
+
+      const products = Array.isArray(data.products) ? data.products : [];
+      conversation.push({ role: 'assistant', content: data.reply, products });
+      saveConversation();
+      appendMessageElement('assistant', data.reply, products);
+    } catch (err) {
+      hideTyping();
+      const errText = getCopy().errorMsg;
+      appendMessageElement('assistant', errText);
+    } finally {
+      isBusy = false;
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+  }
+
+  function togglePanel(forceState) {
+    isOpen = typeof forceState === 'boolean' ? forceState : !isOpen;
+    panel.classList.toggle('is-open', isOpen);
+    launcher.classList.toggle('is-open', isOpen);
+    iconChat.style.display = isOpen ? 'none' : 'block';
+    iconClose.style.display = isOpen ? 'block' : 'none';
+    if (isOpen) {
+      syncLabels();
+      setTimeout(() => inputEl.focus(), 180);
+    }
+  }
+
+  launcher.addEventListener('click', () => togglePanel());
+  closeBtn.addEventListener('click', () => togglePanel(false));
+  clearBtn.addEventListener('click', () => {
+    conversation = [];
+    saveConversation();
+    renderAllMessages();
+  });
+
+  formEl.addEventListener('submit', e => {
+    e.preventDefault();
+    sendMessage(inputEl.value);
+  });
+
+  // Sync labels & welcome greeting if user switches language
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      setTimeout(() => {
+        syncLabels();
+        renderAllMessages();
+      }, 60);
+    });
+  });
+
+  syncLabels();
+  renderAllMessages();
+}

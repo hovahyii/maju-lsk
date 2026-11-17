@@ -960,7 +960,7 @@ function initAIChatbot() {
       welcome: 'Hi! I’m the Maju LSK Product AI. Ask me anything about our wholesale food, bakery ingredients, frozen foods, or brands in our catalog.',
       chips: [
         'What frozen foods do you carry?',
-        'Show me Callebaut chocolate',
+        'About Maju LSK',
         'Do you supply cooking oil?',
         'List your flour & baking brands'
       ],
@@ -976,7 +976,7 @@ function initAIChatbot() {
       welcome: 'Hai! Saya pembantu AI Produk Maju LSK. Tanya saya tentang bahan makanan borong, bahan bakeri, makanan sejuk beku, atau jenama dalam katalog kami.',
       chips: [
         'Apakah makanan sejuk beku yang ada?',
-        'Tunjukkan produk coklat Callebaut',
+        'Tentang Maju LSK',
         'Adakah anda membekalkan minyak masak?',
         'Senaraikan tepung & bahan bakeri'
       ],
@@ -992,7 +992,7 @@ function initAIChatbot() {
       welcome: '您好！我是 Maju LSK 产品 AI 助手。欢迎向我查询我们的批发食品、烘焙原料、冷冻食品或代理品牌。',
       chips: [
         '你们有哪些冷冻食品？',
-        '查看 Callebaut 巧克力产品',
+        '关于 Maju LSK',
         '有供应食用油或人造黄油吗？',
         '列出面粉和烘焙原料品牌'
       ],

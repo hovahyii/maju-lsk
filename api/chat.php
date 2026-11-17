@@ -1,4 +1,5 @@
 <?php
+@set_time_limit(60);
 require __DIR__ . '/db.php';
 require __DIR__ . '/config.php';
 
@@ -47,11 +48,14 @@ $history = is_array($input['history'] ?? null) ? array_slice($input['history'], 
  */
 function getGuardrailRefusal(string $lang): string
 {
-    return match ($lang) {
-        'ms' => 'Maaf, saya hanya boleh membantu dengan pertanyaan berkaitan produk, jenama, dan perniagaan Maju LSK sahaja. Sila kemukakan soalan yang berkaitan.',
-        'zh' => '抱歉，我仅能回答与 Maju LSK 产品目录、代理品牌及批发业务相关的问题。请提出与本公司产品或业务相关的问题，谢谢。',
-        default => 'Sorry, I can only assist with inquiries related to Maju LSK products, brands, and wholesale business. Please ask a relevant question.',
-    };
+    switch ($lang) {
+        case 'ms':
+            return 'Maaf, saya hanya boleh membantu dengan pertanyaan berkaitan produk, jenama, dan perniagaan Maju LSK sahaja. Sila kemukakan soalan yang berkaitan.';
+        case 'zh':
+            return '抱歉，我仅能回答与 Maju LSK 产品目录、代理品牌及批发业务相关的问题。请提出与本公司产品或业务相关的问题，谢谢。';
+        default:
+            return 'Sorry, I can only assist with inquiries related to Maju LSK products, brands, and wholesale business. Please ask a relevant question.';
+    }
 }
 
 /**
@@ -329,8 +333,8 @@ function callOpenRouter(string $model, array $messages): array
             'X-Title: ' . CHATBOT_SITE_NAME,
         ],
         CURLOPT_POSTFIELDS => json_encode($payload),
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_TIMEOUT => 15,
+        CURLOPT_CONNECTTIMEOUT => 6,
     ]);
 
     $responseBody = curl_exec($ch);
@@ -369,9 +373,9 @@ try {
     $catalog = queryCatalogContext($pdo, $message, $history);
 
     // Format taxonomy for system prompt
-    $catLines = array_map(fn($c) => "{$c['name']} ({$c['total']})", $catalog['categories']);
-    $subLines = array_map(fn($s) => "{$s['category_name']} > {$s['name']} ({$s['total']})", $catalog['subcategories']);
-    $brandLines = array_map(fn($b) => "{$b['name']} ({$b['total']})", $catalog['brands']);
+    $catLines = array_map(function ($c) { return "{$c['name']} ({$c['total']})"; }, $catalog['categories']);
+    $subLines = array_map(function ($s) { return "{$s['category_name']} > {$s['name']} ({$s['total']})"; }, $catalog['subcategories']);
+    $brandLines = array_map(function ($b) { return "{$b['name']} ({$b['total']})"; }, $catalog['brands']);
 
     $productLines = [];
     $productById = [];
@@ -383,11 +387,17 @@ try {
         $productLines[] = "[ID:$id] {$p['name']} | Brand: $brand | Category: {$p['category_name']}{$sub}";
     }
 
-    $langInstruction = match ($lang) {
-        'ms' => 'LANGUAGE LOCK: The website is currently set to Bahasa Melayu (ms). You MUST reply 100% in Bahasa Melayu (only keep official product/brand proper names as-is).',
-        'zh' => 'LANGUAGE LOCK: The website is currently set to Chinese (zh). You MUST reply 100% in Simplified Chinese (简体中文) (only keep official English product/brand proper names if needed).',
-        default => 'LANGUAGE LOCK: The website is currently set to English (en). You MUST reply 100% in English.',
-    };
+    switch ($lang) {
+        case 'ms':
+            $langInstruction = 'LANGUAGE LOCK: The website is currently set to Bahasa Melayu (ms). You MUST reply 100% in Bahasa Melayu (only keep official product/brand proper names as-is).';
+            break;
+        case 'zh':
+            $langInstruction = 'LANGUAGE LOCK: The website is currently set to Chinese (zh). You MUST reply 100% in Simplified Chinese (简体中文) (only keep official English product/brand proper names if needed).';
+            break;
+        default:
+            $langInstruction = 'LANGUAGE LOCK: The website is currently set to English (en). You MUST reply 100% in English.';
+            break;
+    }
 
     $guardrailExample = getGuardrailRefusal($lang);
 

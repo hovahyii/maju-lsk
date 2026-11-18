@@ -23,21 +23,21 @@ SET @adabi_brand_id = (
 INSERT INTO products (name, image_url, brand_id, category_id, is_active, sort_order)
 SELECT item.name, item.image_url, @adabi_brand_id, @frozen_category_id, 1, 0
 FROM (
-    SELECT 'Paratha (Original) (5 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-original.webp' AS image_url
+    SELECT 'Paratha (Original) (5 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-original.svg' AS image_url
     UNION ALL
-    SELECT 'Paratha (Onion) (5 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-onion.webp' AS image_url
+    SELECT 'Paratha (Onion) (5 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-onion.svg' AS image_url
     UNION ALL
-    SELECT 'Roti Canai (5 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/roti-canai.webp' AS image_url
+    SELECT 'Roti Canai (5 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/roti-canai.svg' AS image_url
     UNION ALL
-    SELECT 'Capati (8 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/capati.webp' AS image_url
+    SELECT 'Capati (8 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/capati.svg' AS image_url
     UNION ALL
-    SELECT 'Paratha (Original) with Chicken Curry (5 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-original-with-chicken-curry.webp' AS image_url
+    SELECT 'Paratha (Original) with Chicken Curry (5 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-original-with-chicken-curry.svg' AS image_url
     UNION ALL
-    SELECT 'Paratha (Onion) with Chicken Curry (5 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-onion-with-chicken-curry.webp' AS image_url
+    SELECT 'Paratha (Onion) with Chicken Curry (5 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-onion-with-chicken-curry.svg' AS image_url
     UNION ALL
-    SELECT 'Roti Canai with Chicken Curry (5 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/roti-canai-with-chicken-curry.webp' AS image_url
+    SELECT 'Roti Canai with Chicken Curry (5 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/roti-canai-with-chicken-curry.svg' AS image_url
     UNION ALL
-    SELECT 'Capati with Chicken Curry (8 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/capati-with-chicken-curry.webp' AS image_url
+    SELECT 'Capati with Chicken Curry (8 pcs, 600 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/capati-with-chicken-curry.svg' AS image_url
 ) AS item
 WHERE @frozen_category_id IS NOT NULL
   AND @adabi_brand_id IS NOT NULL

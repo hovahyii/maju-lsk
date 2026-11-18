@@ -20,8 +20,23 @@ SET @adabi_brand_id = (
     LIMIT 1
 );
 
-INSERT INTO products (name, image_url, brand_id, category_id, is_active, sort_order)
-SELECT item.name, item.image_url, @adabi_brand_id, @frozen_category_id, 1, 0
+INSERT INTO subcategories (category_id, name, slug, sort_order)
+SELECT @frozen_category_id, 'Flatbread', 'flatbread', 0
+WHERE @frozen_category_id IS NOT NULL
+  AND NOT EXISTS (
+      SELECT 1 FROM subcategories
+      WHERE category_id = @frozen_category_id AND (slug = 'flatbread' OR name = 'Flatbread')
+  );
+
+SET @flatbread_subcategory_id = (
+    SELECT id FROM subcategories
+    WHERE category_id = @frozen_category_id AND (slug = 'flatbread' OR name = 'Flatbread')
+    ORDER BY (slug = 'flatbread') DESC, id
+    LIMIT 1
+);
+
+INSERT INTO products (name, image_url, brand_id, category_id, subcategory_id, is_active, sort_order)
+SELECT item.name, item.image_url, @adabi_brand_id, @frozen_category_id, @flatbread_subcategory_id, 1, 0
 FROM (
     SELECT 'Paratha (Original) (5 pcs, 400 g)' AS name, 'products/Frozen Food/Flatbread/Adabi/paratha-original.svg' AS image_url
     UNION ALL

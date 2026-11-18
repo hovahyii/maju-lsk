@@ -50,7 +50,7 @@
     "jimart_name": "Ji-Mart Enterprise",
     "jimart_desc": "Your one-stop shop for flour, chocolate, and paper essentials. A leading supplier of comprehensive solutions for mini-markets and supermarkets.",
     "andong_name": "Syarikat Andong",
-    "andong_desc": "Your essential supplier for dairy, frozen, and paper products. Also the sole distributor for Genki! Baby Diaper in Brunei.",
+    "andong_desc": "Syarikat Andong supplies Anchor Food Professionals dairy products, Lutosa French Fries, Aroma Frying Flour, Reiser Frying Oil, Nutrifres Concentrates, and foodservice essentials across Brunei.",
     "sub_call": "Call",
     "sub_view": "View More →",
     "prod_title": "Our Products & Brands",
@@ -198,8 +198,7 @@
     "contact_info_title": "Contact Information",
 
     "andong_page_title": "Syarikat Andong",
-    "andong_intro_1": "Syarikat Andong is a subsidiary of Maju LSK Logistic & Food Fare Sdn Bhd and the sole distributor for <strong>Genki! Baby Diaper</strong> in Brunei.",
-    "andong_intro_2": "We specialize in baby goods and children's goods, ensuring quality and comfort for the little ones.",
+    "andong_intro_1": "Specialising in <strong>Anchor Food Professionals dairy products</strong>, we also supply <strong>Lutosa French Fries, Aroma Frying Flour, Reiser Frying Oil, Nutrifres Concentrates,</strong> and a wide range of foodservice essentials.",
     "andong_address": "Mulaut Industrial Parkland Ban 5, Unit 9, Kg Mulaut, Mukim Sengkurong, BG1221 Negara Brunei Darussalam",
     "person_hq_name": "Mr Sam Ying Kok",
     "person_jimart_role": "PIC: Mr. Ting",
@@ -210,5 +209,5 @@
     "seo_jimart_title": "Ji-Mart Enterprise - Maju LSK Subsidiary",
     "seo_jimart_desc": "Ji-Mart Enterprise is your one-stop shop for flour, chocolate, bakery ingredients, and paper products in Brunei. A subsidiary of Maju LSK.",
     "seo_andong_title": "Syarikat Andong - Maju LSK Subsidiary",
-    "seo_andong_desc": "Syarikat Andong is a subsidiary of Maju LSK Logistic & Food Fare Sdn Bhd and the sole distributor for Genki! Baby Diaper in Brunei."
+    "seo_andong_desc": "Syarikat Andong supplies Anchor Food Professionals dairy products, Lutosa French Fries, Aroma Frying Flour, Reiser Frying Oil, Nutrifres Concentrates, and foodservice essentials across Brunei."
 }

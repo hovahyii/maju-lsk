@@ -47,7 +47,7 @@
     "jimart_name": "Ji-Mart Enterprise",
     "jimart_desc": "您的面粉、巧克力和纸品一站式商店。为迷你市场和超市提供全面解决方案的领先供应商。",
     "andong_name": "Syarikat Andong",
-    "andong_desc": "乳制品、冷冻食品和纸品的重要供应商。同时也是Genki! 婴儿尿布在文莱的唯一经销商。",
+    "andong_desc": "Syarikat Andong 在文莱供应 Anchor Food Professionals 乳制品、Lutosa 薯条、Aroma 炸粉、Reiser 煎炸油、Nutrifres 浓缩饮料及各类餐饮用品。",
     "sub_call": "致电",
     "sub_view": "查看更多 →",
     "prod_title": "我们的产品和品牌",
@@ -209,10 +209,9 @@
     "jimart_address": "Maju LSK 总部",
     "download_catalogue": "下载目录",
     "seo_andong_title": "Syarikat Andong - Maju LSK 子公司",
-    "seo_andong_desc": "Syarikat Andong 是 Maju LSK Logistic & Food Fare Sdn Bhd 的子公司，也是 Genki! 婴儿纸尿裤在文莱的独家经销商。",
+    "seo_andong_desc": "Syarikat Andong 在文莱供应 Anchor Food Professionals 乳制品、Lutosa 薯条、Aroma 炸粉、Reiser 煎炸油、Nutrifres 浓缩饮料及各类餐饮用品。",
     "andong_page_title": "Syarikat Andong",
-    "andong_intro_1": "Syarikat Andong 是 Maju LSK Logistic & Food Fare Sdn Bhd 的子公司，也是 <strong>Genki! 婴儿尿布</strong> 在文莱的独家经销商。",
-    "andong_intro_2": "我们专注于婴儿用品和儿童用品，确保为宝宝提供优质和舒适的体验。",
+    "andong_intro_1": "我们专营<strong>Anchor Food Professionals 乳制品</strong>，同时供应<strong>Lutosa 薯条、Aroma 炸粉、Reiser 煎炸油、Nutrifres 浓缩饮料</strong>及各类餐饮用品。",
     "andong_address": "Mulaut Industrial Parkland Ban 5, Unit 9, Kg Mulaut, Mukim Sengkurong, BG1221 Negara Brunei Darussalam",
     "prod_disclaimer": "<strong>免责声明：</strong> 此列表中未显示所有产品。请参阅我们的官方 <span style=\"color: var(--primary); font-weight: bold;\">产品目录</span> 以获取更多详情和完整的产品列表。"
 }

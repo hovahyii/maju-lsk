@@ -13,7 +13,7 @@ async function loadTranslations(lang) {
     return _translationCache[lang];
   }
   try {
-    const res = await fetch('lang/' + lang + '.json?v=2');
+    const res = await fetch('lang/' + lang + '.json?v=3');
     const data = await res.json();
     _translationCache[lang] = data;
     _currentTranslations = data;

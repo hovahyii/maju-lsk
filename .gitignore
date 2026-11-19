@@ -9,6 +9,7 @@ node_modules/
 !/catalog/add-andong-aroma.sql
 !/catalog/add-andong-arbella.sql
 !/catalog/add-andong-mum-mum.sql
+!/catalog/add-andong-nongshim.sql
 !/catalog/rename-maeil-caramel-macchiato.sql
 !/catalog/rename-adabi-flatbreads.sql
 !/catalog/reassign-frozen-eggs-to-eggtech.sql

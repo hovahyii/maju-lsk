@@ -24,14 +24,10 @@ async function loadTranslations(lang) {
   }
 }
 
-// ============ PERSON IN CHARGE DATA ============
+// ============ LOCATION CONTACT DATA ============
 const personData = {
   hq: {
-    name: "Sam Ying Kok",
-    nameKey: "person_hq_name",
-    nameFallback: "Sam Ying Kok",
-    roleKey: "person_hq_role",
-    roleFallback: "Pengasas & CEO",
+    name: "Maju LSK Logistics and Foodfare Sdn Bhd",
     phone: "+673 267 1161",
     email: "admin@majulskgroup.com",
     hoursKey: "person_hq_hours",
@@ -40,8 +36,6 @@ const personData = {
   },
   jimart: {
     name: "Ji-Mart Enterprise",
-    roleKey: "person_jimart_role",
-    roleFallback: "Pengedar Makanan & Bakeri",
     phone: "+673 267 1161",
     email: "hockjimart@hotmail.com",
     hoursKey: "person_jimart_hours",
@@ -50,8 +44,6 @@ const personData = {
   },
   andong: {
     name: "Syarikat Andong",
-    roleKey: "person_andong_role",
-    roleFallback: "Pengedar Tenusu & Sejuk Beku",
     phone: "+673 872 9766",
     email: "syarikatandong@majulskgroup.com",
     hoursKey: "person_andong_hours",
@@ -60,8 +52,6 @@ const personData = {
   },
   iburia: {
     name: "Iburia Sdn Bhd",
-    roleKey: "person_iburia_role",
-    roleFallback: "Runcit & Pengedaran",
     phone: "+673 267 1161",
     email: "iburia@majulskgroup.com",
     hoursKey: "person_iburia_hours",
@@ -70,8 +60,6 @@ const personData = {
   },
   mgs: {
     name: "Mas Grocery Store (MGS)",
-    roleKey: "person_mgs_role",
-    roleFallback: "Kedai Runcit",
     phone: "+673 267 1161",
     email: "mgs@majulskgroup.com",
     hoursKey: "person_mgs_hours",
@@ -291,24 +279,18 @@ function updatePersonPanel() {
 
   const t = _currentTranslations;
 
-  const nameEl = document.getElementById('personName');
-  const roleEl = document.getElementById('personRole');
   const phoneEl = document.getElementById('personPhone');
   const emailEl = document.getElementById('personEmail');
   const hoursEl = document.getElementById('personHours');
   const avatarEl = document.querySelector('.person-avatar');
 
-  const nameValue = data.nameKey ? (t[data.nameKey] || data.nameFallback || data.name || data.nameKey) : data.name;
-
-  if (nameEl) nameEl.textContent = nameValue;
-  if (roleEl) roleEl.textContent = t[data.roleKey] || data.roleFallback || data.roleKey;
   if (phoneEl) phoneEl.textContent = data.phone;
   if (emailEl) emailEl.textContent = data.email;
   if (hoursEl) hoursEl.textContent = t[data.hoursKey] || data.hoursFallback || data.hoursKey;
 
   if (avatarEl) {
     if (data.avatar.includes('.')) {
-      avatarEl.innerHTML = `<img src="${data.avatar}" alt="${nameValue}" style="width: 100%; height: 100%; object-fit: contain; padding: 10px;">`;
+      avatarEl.innerHTML = `<img src="${data.avatar}" alt="${data.name}" style="width: 100%; height: 100%; object-fit: contain; padding: 10px;">`;
     } else {
       avatarEl.textContent = data.avatar;
     }

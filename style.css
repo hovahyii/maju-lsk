@@ -1313,6 +1313,10 @@ p {
   text-align: center;
 }
 
+.person-panel-header h4 {
+  color: inherit;
+}
+
 .person-panel-body {
   padding: var(--space-xl);
   text-align: center;
@@ -1328,19 +1332,6 @@ p {
   align-items: center;
   justify-content: center;
   margin: 0 auto var(--space-md);
-}
-
-.person-name {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.person-role {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-md);
 }
 
 .person-contact-item {

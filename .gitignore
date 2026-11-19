@@ -5,5 +5,7 @@ node_modules/
 !/catalog/add-andong-starmax-corn.sql
 !/catalog/add-andong-nutrifres.sql
 !/catalog/add-andong-maeil-barista-rules.sql
+!/catalog/rename-maeil-caramel-macchiato.sql
+!/catalog/reassign-frozen-eggs-to-eggtech.sql
 !/catalog/update-andong-starmax-fries.sql
 api/secrets.php

@@ -19,6 +19,7 @@ node_modules/
 !/catalog/update-andong-michigan-pizzas.sql
 !/catalog/add-andong-88-charcoal.sql
 !/catalog/add-andong-mamaku.sql
+!/catalog/add-andong-genki.sql
 !/catalog/rename-maeil-caramel-macchiato.sql
 !/catalog/rename-adabi-flatbreads.sql
 !/catalog/reassign-frozen-eggs-to-eggtech.sql

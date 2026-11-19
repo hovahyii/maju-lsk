@@ -42,7 +42,23 @@ try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
 
-    echo json_encode(['data' => $stmt->fetchAll()]);
+    $products = $stmt->fetchAll();
+    $updatedAromaPhotos = [
+        'All Purpose Seasoned Kentucky Crispy Flour (Original).webp',
+        'All Purpose Seasoned Kentucky Crispy Flour Spicy.webp',
+        'Banana Fritter Flour.webp',
+        'Tempura Flour.webp',
+    ];
+    foreach ($products as &$product) {
+        $image = $product['image_url'] ?? '';
+        if (strpos($image, 'products/Cooking Ingredients/Frying Flour/Aroma/') === 0
+            && in_array(basename($image), $updatedAromaPhotos, true)) {
+            $product['image_url'] .= '?v=aroma-front-back';
+        }
+    }
+    unset($product);
+
+    echo json_encode(['data' => $products]);
 } catch (Throwable $e) {
     http_response_code(500);
     echo json_encode([

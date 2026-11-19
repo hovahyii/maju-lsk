@@ -52,7 +52,7 @@ const personData = {
   },
   iburia: {
     name: "Iburia Sdn Bhd",
-    phone: "+673 267 1161",
+    phone: "+673 718 2345",
     email: "iburia@majulskgroup.com",
     hoursKey: "person_iburia_hours",
     hoursFallback: "Isnin - Sabtu: 8pg - 5ptg",
@@ -60,7 +60,7 @@ const personData = {
   },
   mgs: {
     name: "Mas Grocery Store (MGS)",
-    phone: "+673 267 1161",
+    phone: "+673 713 5789",
     email: "mgs@majulskgroup.com",
     hoursKey: "person_mgs_hours",
     hoursFallback: "Isnin - Sabtu: 8pg - 5ptg",
@@ -235,6 +235,10 @@ let currentPerson = 'hq';
 function initInteractiveMap() {
   const mapCards = document.querySelectorAll('.map-info-card');
   const mapIframe = document.getElementById('mapIframe');
+  if (!mapCards.length) return;
+
+  currentPerson = document.querySelector('.map-info-card.active')?.dataset.person || 'hq';
+  updatePersonPanel();
 
   // Map URLs updated to your requested pinpoints
   const mapUrls = {
@@ -266,7 +270,7 @@ function initInteractiveMap() {
         mapIframe.src = mapUrls[person];
       }
 
-      // 3. Update the Person in Charge panel
+      // 3. Update the location contact panel
       currentPerson = person;
       updatePersonPanel();
     });
@@ -279,11 +283,13 @@ function updatePersonPanel() {
 
   const t = _currentTranslations;
 
+  const titleEl = document.getElementById('locationContactTitle');
   const phoneEl = document.getElementById('personPhone');
   const emailEl = document.getElementById('personEmail');
   const hoursEl = document.getElementById('personHours');
   const avatarEl = document.querySelector('.person-avatar');
 
+  if (titleEl) titleEl.textContent = data.name;
   if (phoneEl) phoneEl.textContent = data.phone;
   if (emailEl) emailEl.textContent = data.email;
   if (hoursEl) hoursEl.textContent = t[data.hoursKey] || data.hoursFallback || data.hoursKey;

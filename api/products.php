@@ -54,6 +54,10 @@ try {
         if (strpos($image, 'products/Cooking Ingredients/Frying Flour/Aroma/') === 0
             && in_array(basename($image), $updatedAromaPhotos, true)) {
             $product['image_url'] .= '?v=aroma-front-back';
+        } elseif (strpos($image, 'products/') === 0
+            && strpos($image, '/AgroMas/') !== false
+            && substr($image, -5) === '.webp') {
+            $product['image_url'] .= '?v=agromas-packshots';
         }
     }
     unset($product);

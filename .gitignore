@@ -8,6 +8,7 @@ node_modules/
 !/catalog/add-andong-anchor-dairy.sql
 !/catalog/add-andong-aroma.sql
 !/catalog/add-andong-arbella.sql
+!/catalog/add-andong-mum-mum.sql
 !/catalog/rename-maeil-caramel-macchiato.sql
 !/catalog/reassign-frozen-eggs-to-eggtech.sql
 !/catalog/update-andong-frozen-food.sql

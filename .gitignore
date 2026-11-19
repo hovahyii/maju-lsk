@@ -17,6 +17,7 @@ node_modules/
 !/catalog/add-andong-taekyung-food.sql
 !/catalog/add-jimart-green-house.sql
 !/catalog/update-andong-michigan-pizzas.sql
+!/catalog/add-andong-88-charcoal.sql
 !/catalog/rename-maeil-caramel-macchiato.sql
 !/catalog/rename-adabi-flatbreads.sql
 !/catalog/reassign-frozen-eggs-to-eggtech.sql

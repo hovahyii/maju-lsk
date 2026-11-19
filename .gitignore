@@ -21,6 +21,7 @@ node_modules/
 !/catalog/add-andong-mamaku.sql
 !/catalog/add-andong-genki.sql
 !/catalog/add-andong-regain.sql
+!/catalog/add-andong-giant-friend.sql
 !/catalog/rename-maeil-caramel-macchiato.sql
 !/catalog/rename-adabi-flatbreads.sql
 !/catalog/reassign-frozen-eggs-to-eggtech.sql

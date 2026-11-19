@@ -979,6 +979,15 @@ p {
   object-fit: contain;
 }
 
+.product-card-img:has(img[src^="products/Beverage/"][src*="/Nutrifres/"]) {
+  padding: 3px;
+}
+
+.product-card-img img[src^="products/Beverage/"][src*="/Nutrifres/"] {
+  width: 100%;
+  height: 100%;
+}
+
 .product-card-body {
   padding: 15px;
   text-align: center;

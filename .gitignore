@@ -1,4 +1,7 @@
 node_modules/
 .env
 *.sql
+!/catalog/add-andong-cooking-oils.sql
+!/catalog/add-andong-starmax-corn.sql
+!/catalog/add-andong-nutrifres.sql
 api/secrets.php

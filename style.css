@@ -1119,7 +1119,7 @@ p {
   background: var(--white);
   border: 1px solid var(--gray-100);
   border-radius: var(--radius-md);
-  padding: var(--space-lg);
+  padding: clamp(12px, 1.25vw, 20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1138,6 +1138,72 @@ p {
   height: 100%;
   object-fit: contain;
 }
+
+/* Trim empty space baked into logo files while retaining their original assets. */
+.brand-logo-card img[src="brands/Ji-mart enterprise/agromas.webp"] { object-view-box: inset(18.25% 9.67% 17.50% 9.67%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/ak.webp"] { object-view-box: inset(15.87% 28.25% 19.78% 28.25%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/akk.webp"] { object-view-box: inset(15.70% 15.08% 16.59% 11.90%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/backaldrin.webp"] { object-view-box: inset(24.75% 35.12% 29.70% 36.16%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/bakels.webp"] { object-view-box: inset(32.16% 3.00% 32.75% 3.33%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/belcolade.webp"] { object-view-box: inset(17.64% 5.00% 32.00% 3.71%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/callebaut.webp"] { object-view-box: inset(31.40% 27.87% 30.23% 30.91%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/cap-mee-udang.webp"] { object-view-box: inset(28.52% 39.62% 39.26% 36.76%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/cap-udang.webp"] { object-view-box: inset(33.77% 19.13% 34.04% 20.22%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/cargill.webp"] { object-view-box: inset(29.36% 29.81% 42.81% 33.46%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/chin kitchen.webp"] { object-view-box: inset(21.40% 35.85% 29.43% 35.85%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/ever-whip.webp"] { object-view-box: inset(33.33% 12.86% 25.71% 14.29%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/gardens.webp"] { object-view-box: inset(32.62% 15.84% 32.01% 16.27%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/greenhouse.webp"] { object-view-box: inset(27.74% 35.47% 39.38% 35.80%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/happy.webp"] { object-view-box: inset(29.95% 35.03% 39.29% 32.99%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/hiestand.webp"] { object-view-box: inset(36.80% 29.27% 43.60% 33.26%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/interflour.webp"] { object-view-box: inset(26.53% 29.81% 22.45% 26.30%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/jade-leaf.webp"] { object-view-box: inset(0 3.82% 0 0); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/jongga.webp"] { object-view-box: inset(22.05% 29.74% 28.35% 30.61%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/kawan.webp"] { object-view-box: inset(26.99% 31.81% 37.37% 34.70%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/kimberly-clark.webp"] { object-view-box: inset(32.67% 7.50% 33.00% 7.33%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/nbi.webp"] { object-view-box: inset(10.15% 26.50% 13.23% 18.84%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/no1.webp"] { object-view-box: inset(39.02% 25.21% 27.59% 22.19%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/ofood.webp"] { object-view-box: inset(34.88% 27.13% 42.35% 25.56%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/opencountry.webp"] { object-view-box: inset(33.50% 0 33.50% 0); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/safcol.webp"] { object-view-box: inset(24.95% 23.22% 29.48% 22.49%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/sampan.webp"] { object-view-box: inset(28.42% 19.52% 27.89% 26.95%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/samyang.webp"] { object-view-box: inset(34.74% 16.54% 34.74% 16.54%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/sky blue.webp"] { object-view-box: inset(29.74% 29.41% 32.85% 32.66%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/star brand.webp"] { object-view-box: inset(30.97% 36.15% 34.81% 38.72%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/sunflower.webp"] { object-view-box: inset(0 1.04% 2.20% 0); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/teans gourment.webp"] { object-view-box: inset(1.11% 8.00% 0 7.56%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/van-houten.webp"] { object-view-box: inset(23.56% 2.67% 28.89% 7.11%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/vivo.webp"] { object-view-box: inset(27.50% 26.92% 34.50% 27.00%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/win2.webp"] { object-view-box: inset(23.40% 18.03% 28.09% 18.44%); }
+.brand-logo-card img[src="brands/Ji-mart enterprise/you-ai.webp"] { object-view-box: inset(4.03% 21.40% 6.14% 26.10%); }
+.brand-logo-card img[src="brands/Syarikat Andong/adabi.png"] { object-view-box: inset(0 0 0 2.75%); }
+.brand-logo-card img[src="brands/Syarikat Andong/anchor.webp"] { object-view-box: inset(22.82% 0.56% 29.86% 1.13%); }
+.brand-logo-card img[src="brands/Syarikat Andong/arbella.webp"] { object-view-box: inset(33.63% 23.96% 34.52% 22.95%); }
+.brand-logo-card img[src="brands/Syarikat Andong/aroma.webp"] { object-view-box: inset(16.90% 2.50% 17.00% 2.60%); }
+.brand-logo-card img[src="brands/Syarikat Andong/bezt.webp"] { object-view-box: inset(35.73% 23.75% 33.00% 29.73%); }
+.brand-logo-card img[src="brands/Syarikat Andong/brumee.webp"] { object-view-box: inset(18.34% 0 18.34% 0); }
+.brand-logo-card img[src="brands/Syarikat Andong/cafe-latte.webp"] { object-view-box: inset(21.32% 32.46% 26.33% 37.47%); }
+.brand-logo-card img[src="brands/Syarikat Andong/cap-televisyen.webp"] { object-view-box: inset(20.34% 33.97% 25.18% 34.65%); }
+.brand-logo-card img[src="brands/Syarikat Andong/charcoal.webp"] { object-view-box: inset(33.78% 36.82% 37.16% 43.58%); }
+.brand-logo-card img[src="brands/Syarikat Andong/d-jack.webp"] { object-view-box: inset(30.44% 28.56% 35.36% 34.25%); }
+.brand-logo-card img[src="brands/Syarikat Andong/easy-meal-everyday.webp"] { object-view-box: inset(16.58% 25.15% 19.54% 27.14%); }
+.brand-logo-card img[src="brands/Syarikat Andong/freshnsoz.webp"] { object-view-box: inset(37.01% 34.32% 42.40% 33.30%); }
+.brand-logo-card img[src="brands/Syarikat Andong/genki.webp"] { object-view-box: inset(13.06% 25.57% 25.27% 26.90%); }
+.brand-logo-card img[src="brands/Syarikat Andong/lutosa.webp"] { object-view-box: inset(33.33% 16.47% 33.73% 17.65%); }
+.brand-logo-card img[src="brands/Syarikat Andong/michigan.webp"] { object-view-box: inset(34.14% 29.55% 32.65% 32.65%); }
+.brand-logo-card img[src="brands/Syarikat Andong/miga.webp"] { object-view-box: inset(39.71% 16.59% 33.81% 19.30%); }
+.brand-logo-card img[src="brands/Syarikat Andong/mykuali.webp"] { object-view-box: inset(32.29% 32.50% 32.92% 32.50%); }
+.brand-logo-card img[src="brands/Syarikat Andong/nongshim.webp"] { object-view-box: inset(15.40% 12.80% 13.60% 12.80%); }
+.brand-logo-card img[src="brands/Syarikat Andong/nutrifries.webp"] { object-view-box: inset(29.82% 27.22% 30.34% 30.41%); }
+.brand-logo-card img[src="brands/Syarikat Andong/reiser.png"] { object-view-box: inset(38.00% 4.00% 37.00% 6.67%); }
+.brand-logo-card img[src="brands/Syarikat Andong/see-u.webp"] { object-view-box: inset(19.96% 20.34% 19.08% 26.27%); }
+.brand-logo-card img[src="brands/Syarikat Andong/starmax.webp"] { object-view-box: inset(31.73% 12.13% 31.60% 12.27%); }
+.brand-logo-card img[src="brands/Syarikat Andong/taukyung.webp"] { object-view-box: inset(38.38% 31.61% 42.98% 33.76%); }
+.brand-logo-card img[src="brands/Syarikat Andong/tmfoods.webp"] { object-view-box: inset(31.26% 27.47% 32.04% 29.71%); }
+.brand-logo-card img[src="brands/Syarikat Andong/tricious.webp"] { object-view-box: inset(3.63% 0.49% 4.60% 1.53%); }
+.brand-logo-card img[src="brands/Syarikat Andong/twin-leaves.png"] { object-view-box: inset(10.40% 15.00% 12.80% 14.33%); }
+.brand-logo-card img[src="brands/Syarikat Andong/visvita.webp"] { object-view-box: inset(32.11% 32.19% 32.57% 33.19%); }
+.brand-logo-card img[src="brands/Syarikat Andong/volvic.webp"] { object-view-box: inset(31.52% 24.21% 34.75% 27.58%); }
 
 /* ============================================
    MAP & PERSON IN CHARGE

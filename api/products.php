@@ -6,7 +6,7 @@ header('Content-Type: application/json; charset=utf-8');
 try {
     $pdo = getDb();
 
-    $where = ['p.is_active = 1'];
+    $where = [AVAILABLE_PRODUCT_SQL];
     $params = [];
 
     if (!empty($_GET['category'])) {

@@ -988,6 +988,16 @@ p {
   height: 100%;
 }
 
+.product-card-img:has(img:is([alt="Hot Chicken Buldak Sauce"], [alt="Hot Chicken Extreme Buldak Sauce"])) {
+  padding: 8px;
+  overflow: hidden;
+}
+
+/* The bottles occupy 98% and 82% of their source image heights, respectively. */
+.product-card-img img[alt="Hot Chicken Extreme Buldak Sauce"] {
+  transform: scale(1.2);
+}
+
 .product-card-body {
   padding: 15px;
   text-align: center;
@@ -1140,6 +1150,15 @@ p {
 .brand-logo-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
+}
+
+.brand-logo-card:focus-visible {
+  outline: 2px solid var(--blue-900);
+  outline-offset: 3px;
+}
+
+#products {
+  scroll-margin-top: 80px;
 }
 
 .brand-logo-card img {

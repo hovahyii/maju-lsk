@@ -153,6 +153,12 @@ function setLanguage(lang) {
   url.searchParams.set('lang', lang);
   window.history.pushState({path: url.href}, '', url.href);
 
+  document.querySelectorAll('a.brand-logo-card').forEach(link => {
+    const target = new URL(link.href);
+    target.searchParams.set('lang', lang);
+    link.href = target.href;
+  });
+
   loadTranslations(lang).then(t => {
     _currentTranslations = t;
     applyTranslations(t);
@@ -450,10 +456,13 @@ function initBrandFilter() {
   applyFilter(activeFilter);
 }
 
+let productRequestVersion = 0;
+
 function loadProducts(filters = {}) {
   const grid = document.getElementById('productsGrid');
   const loadMoreButton = document.getElementById('productsLoadMore');
   if (!grid) return Promise.resolve();
+  const requestVersion = ++productRequestVersion;
 
   const t = _currentTranslations;
   const messageText = t.prod_loading || "Loading products...";
@@ -477,6 +486,7 @@ function loadProducts(filters = {}) {
   return fetch(url, { cache: 'no-store' })
     .then(response => response.json())
     .then(payload => {
+      if (requestVersion !== productRequestVersion) return;
       const products = Array.isArray(payload?.data) ? payload.data : [];
       grid.innerHTML = '';
 
@@ -545,6 +555,7 @@ function loadProducts(filters = {}) {
       bindLoadMore({ grid, button: loadMoreButton, itemSelector: '.product-card', displayType: 'flex' });
     })
     .catch(() => {
+      if (requestVersion !== productRequestVersion) return;
       grid.innerHTML = '';
       const errorCard = document.createElement('div');
       errorCard.className = 'product-card';
@@ -564,6 +575,7 @@ function initProductSidebarFilters() {
   const subcategorySelect = document.getElementById('filterSubcategory');
   const brandSelect = document.getElementById('filterBrand');
   const resetButton = document.getElementById('filterReset');
+  const requestedBrand = urlParams.get('brand') || '';
 
   const getAllLabel = () => (_currentTranslations.filter_all) || 'All';
 
@@ -669,39 +681,78 @@ function initProductSidebarFilters() {
 
       brandSelect.addEventListener('change', applyFilters);
 
-      if (resetButton) {
-        resetButton.addEventListener('click', () => {
-          categorySelect.value = '';
-          populateSubcategoryOptions(maps.allSubcategories);
-          subcategorySelect.value = '';
-          populateBrandOptions(maps.brands);
-          brandSelect.value = '';
+      const selectBrand = (brand, label) => {
+        const brandMap = new Map(getCurrentBrandMap());
+        // Some logos use a product line or a shorter name than the catalog.
+        const brandKey = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const requestedKey = brandKey(brand);
+        const catalogAliases = new Map([
+          ['anchor', 'anchorfoodprofessionals'],
+          ['cafelatte', 'maeil'],
+          ['captelevisyen', 'captelevisyenkluangcoffee'],
+          ['charcoal', '88'],
+          ['jadeleaf', 'jadeleafbrand'],
+          ['taukyung', 'taekyungfood'],
+        ]);
+        const acceptedKeys = [requestedKey, catalogAliases.get(requestedKey)];
+        const matchedBrand = brandMap.has(brand) ? brand :
+          [...brandMap].find(([slug, name]) =>
+            [slug, name].some(value => acceptedKeys.includes(brandKey(value))))?.[0];
+        if (brand && !matchedBrand) {
+          brandMap.set(brand, label || brand.replace(/-/g, ' '));
+        }
+        populateBrandOptions(brandMap);
+        brandSelect.value = matchedBrand || brand;
+      };
+
+      const clearCategoryFilters = () => {
+        categorySelect.value = '';
+        populateSubcategoryOptions(maps.allSubcategories);
+        subcategorySelect.value = '';
+      };
+
+      resetButton?.addEventListener('click', () => {
+        clearCategoryFilters();
+        selectBrand('');
+        applyFilters();
+      });
+
+      document.querySelectorAll('a.brand-logo-card').forEach(link => {
+        link.addEventListener('click', event => {
+          if (event.defaultPrevented || event.button !== 0 || event.metaKey ||
+              event.ctrlKey || event.shiftKey || event.altKey) return;
+          const target = new URL(link.href);
+          const brand = target.searchParams.get('brand');
+          const section = document.getElementById('products');
+          if (!brand || !section) return;
+
+          event.preventDefault();
+          clearCategoryFilters();
+          selectBrand(brand, link.querySelector('img')?.alt);
+          const current = new URL(window.location.href);
+          current.searchParams.delete('category');
+          current.searchParams.delete('subcategory');
+          current.searchParams.set('brand', brandSelect.value);
+          current.hash = section.id;
+          window.history.replaceState(window.history.state, '', current.href);
           applyFilters();
+          section.scrollIntoView({ block: 'start' });
         });
-      }
+      });
 
-      // Pre-select filters from URL query parameters (e.g. from AI Product Assistant)
+      // Pre-select filters from URL query parameters (e.g. from AI Product Assistant).
       const qCat = urlParams.get('category') || '';
-      const qSub = urlParams.get('subcategory') || '';
-      const qBrand = urlParams.get('brand') || '';
-
       if (qCat && maps.categories.has(qCat)) {
         categorySelect.value = qCat;
-        const subMap = maps.subcategories.get(qCat) || new Map();
-        populateSubcategoryOptions(subMap);
+        populateSubcategoryOptions(maps.subcategories.get(qCat) || new Map());
       }
-      if (qSub) {
-        subcategorySelect.value = qSub;
-      }
-      populateBrandOptions(getCurrentBrandMap());
-      if (qBrand) {
-        brandSelect.value = qBrand;
-      }
+      subcategorySelect.value = urlParams.get('subcategory') || '';
+      selectBrand(requestedBrand);
 
       applyFilters();
     })
     .catch(() => {
-      loadProducts();
+      loadProducts({ brand: requestedBrand }).finally(initScrollAnimations);
     });
 }
 

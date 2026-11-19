@@ -202,10 +202,11 @@ function extractSearchKeywords(string $text): array
  */
 function queryCatalogContext(PDO $pdo, string $message, array $history): array
 {
+    $availableProduct = AVAILABLE_PRODUCT_SQL;
     // 1. Taxonomy overview
     $catSql = "SELECT c.name, c.slug, COUNT(p.id) AS total
                FROM categories c
-               LEFT JOIN products p ON p.category_id = c.id AND p.is_active = 1
+               LEFT JOIN products p ON p.category_id = c.id AND $availableProduct
                GROUP BY c.id, c.name, c.slug
                ORDER BY c.name ASC";
     $categories = $pdo->query($catSql)->fetchAll();
@@ -213,19 +214,19 @@ function queryCatalogContext(PDO $pdo, string $message, array $history): array
     $subSql = "SELECT sc.name, sc.slug, c.name AS category_name, COUNT(p.id) AS total
                FROM subcategories sc
                JOIN categories c ON c.id = sc.category_id
-               LEFT JOIN products p ON p.subcategory_id = sc.id AND p.is_active = 1
+               LEFT JOIN products p ON p.subcategory_id = sc.id AND $availableProduct
                GROUP BY sc.id, sc.name, sc.slug, c.name
                ORDER BY c.name ASC, sc.name ASC";
     $subcategories = $pdo->query($subSql)->fetchAll();
 
     $brandSql = "SELECT b.name, b.slug, COUNT(p.id) AS total
                  FROM brands b
-                 JOIN products p ON p.brand_id = b.id AND p.is_active = 1
+                 JOIN products p ON p.brand_id = b.id AND $availableProduct
                  GROUP BY b.id, b.name, b.slug
                  ORDER BY b.name ASC";
     $brands = $pdo->query($brandSql)->fetchAll();
 
-    $totalProducts = (int)$pdo->query("SELECT COUNT(*) FROM products WHERE is_active = 1")->fetchColumn();
+    $totalProducts = (int)$pdo->query("SELECT COUNT(*) FROM products p WHERE $availableProduct")->fetchColumn();
 
     // 2. Build search keywords from current message + last user message for follow-up context
     $combinedText = $message;
@@ -273,7 +274,7 @@ function queryCatalogContext(PDO $pdo, string $message, array $history): array
                       JOIN categories c ON c.id = p.category_id
                       LEFT JOIN subcategories sc ON sc.id = p.subcategory_id
                       LEFT JOIN brands b ON b.id = p.brand_id
-                      WHERE p.is_active = 1 AND ($whereExpr)
+                      WHERE $availableProduct AND ($whereExpr)
                       ORDER BY relevance DESC, p.sort_order ASC, p.name ASC
                       LIMIT 30";
 
@@ -294,7 +295,7 @@ function queryCatalogContext(PDO $pdo, string $message, array $history): array
                       JOIN categories c ON c.id = p.category_id
                       LEFT JOIN subcategories sc ON sc.id = p.subcategory_id
                       LEFT JOIN brands b ON b.id = p.brand_id
-                      WHERE p.is_active = 1
+                      WHERE $availableProduct
                       ORDER BY p.sort_order ASC, p.id ASC
                       LIMIT 15";
         $matchedProducts = $pdo->query($sampleSql)->fetchAll();

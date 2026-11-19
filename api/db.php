@@ -1,4 +1,11 @@
 <?php
+// Catalog queries use p as the products table alias.
+const AVAILABLE_PRODUCT_SQL = "p.is_active = 1 AND NOT EXISTS (
+    SELECT 1 FROM brands discontinued
+    WHERE discontinued.id = p.brand_id
+      AND (LOWER(discontinued.slug) = 'visvita' OR LOWER(discontinued.name) = 'visvita')
+)";
+
 function getDb(): PDO
 {
     $host = 'localhost';

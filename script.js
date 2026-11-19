@@ -52,7 +52,7 @@ const personData = {
     name: "Syarikat Andong",
     roleKey: "person_andong_role",
     roleFallback: "Pengedar Tenusu & Sejuk Beku",
-    phone: "+673 822 2862",
+    phone: "+673 872 9766",
     email: "syarikatandong@majulskgroup.com",
     hoursKey: "person_andong_hours",
     hoursFallback: "Isnin - Sabtu: 8pg - 5ptg",

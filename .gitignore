@@ -15,6 +15,7 @@ node_modules/
 !/catalog/add-andong-see-u-plenty.sql
 !/catalog/add-andong-volvic.sql
 !/catalog/add-andong-taekyung-food.sql
+!/catalog/add-jimart-green-house.sql
 !/catalog/rename-maeil-caramel-macchiato.sql
 !/catalog/rename-adabi-flatbreads.sql
 !/catalog/reassign-frozen-eggs-to-eggtech.sql

@@ -1,5 +1,25 @@
 -- Run against the website catalog database after deploying the product images.
+USE `majul764_product`;
+
 START TRANSACTION;
+
+UPDATE products
+SET name = REPLACE(REPLACE(REPLACE(name, 'Starmax Gold ', ''), ' (425g)', ''), ' (340g)', '')
+WHERE name IN (
+    'Starmax Gold Whole Kernel Golden Sweet Corn, Brine Packed (425g)',
+    'Starmax Gold Cream Style Cream Corn, Picked & Pureed (425g)',
+    'Starmax Gold Whole Kernel Golden Sweet Corn, Vacuum Packed (340g)'
+)
+AND EXISTS (
+    SELECT 1 FROM brands b
+    WHERE b.id = products.brand_id AND (b.slug = 'starmax' OR b.name = 'Starmax')
+)
+AND EXISTS (
+    SELECT 1 FROM categories c
+    JOIN subcategories sc ON sc.category_id = c.id
+    WHERE c.id = products.category_id AND sc.id = products.subcategory_id
+      AND c.slug = 'instant-food' AND sc.slug = 'canned-food'
+);
 
 INSERT INTO products (name, image_url, category_id, subcategory_id, brand_id, is_active, sort_order)
 SELECT corn.name,
@@ -17,14 +37,14 @@ CROSS JOIN (
     HAVING COUNT(*) = 1
 ) brand
 CROSS JOIN (
-    SELECT 'Starmax Gold Whole Kernel Golden Sweet Corn, Brine Packed (425g)' AS name,
+    SELECT 'Whole Kernel Golden Sweet Corn, Brine Packed' AS name,
            'Whole Kernel Golden Sweet Corn - Brine Packed (425g)' AS filename,
            1 AS sort_order
     UNION ALL
-    SELECT 'Starmax Gold Cream Style Cream Corn, Picked & Pureed (425g)',
+    SELECT 'Cream Style Cream Corn, Picked & Pureed',
            'Cream Style Cream Corn (425g)', 2
     UNION ALL
-    SELECT 'Starmax Gold Whole Kernel Golden Sweet Corn, Vacuum Packed (340g)',
+    SELECT 'Whole Kernel Golden Sweet Corn, Vacuum Packed',
            'Whole Kernel Golden Sweet Corn - Vacuum Packed (340g)', 3
 ) corn
 WHERE NOT EXISTS (
@@ -41,5 +61,9 @@ JOIN categories c ON c.id = p.category_id
 JOIN subcategories sc ON sc.id = p.subcategory_id AND sc.category_id = c.id
 WHERE (b.slug = 'starmax' OR b.name = 'Starmax')
   AND c.slug = 'instant-food' AND sc.slug = 'canned-food'
-  AND p.name LIKE 'Starmax Gold %Corn%'
+  AND p.name IN (
+      'Whole Kernel Golden Sweet Corn, Brine Packed',
+      'Cream Style Cream Corn, Picked & Pureed',
+      'Whole Kernel Golden Sweet Corn, Vacuum Packed'
+  )
 ORDER BY p.sort_order, p.name;

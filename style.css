@@ -998,13 +998,13 @@ p {
   transform: scale(1.2);
 }
 
-.product-card-img:has(img[alt^="Frozen Pasteurized Liquid "]) {
+.product-card-img:has(img[alt*="Pasteurized Liquid" i]) {
   padding: 8px;
   overflow: hidden;
 }
 
 /* The yolk photo has wider, uneven margins around the jug. */
-.product-card-img img[alt="Frozen Pasteurized Liquid Egg Yolk - Stranding Order"] {
+.product-card-img img:is([alt*="Liquid Egg Yolk" i], [src*="Liquid Egg Yolk" i], [src*="Liquid%20Egg%20Yolk" i]) {
   transform: scale(1.26) translate(4.55%, 5.1%);
 }
 

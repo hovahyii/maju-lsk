@@ -13,6 +13,7 @@ node_modules/
 !/catalog/add-andong-miga.sql
 !/catalog/add-andong-lutosa.sql
 !/catalog/add-andong-see-u-plenty.sql
+!/catalog/add-andong-volvic.sql
 !/catalog/rename-maeil-caramel-macchiato.sql
 !/catalog/rename-adabi-flatbreads.sql
 !/catalog/reassign-frozen-eggs-to-eggtech.sql

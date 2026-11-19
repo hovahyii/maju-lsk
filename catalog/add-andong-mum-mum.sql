@@ -1,4 +1,5 @@
 -- Run against the website catalog database after deploying the Mum Mum photos.
+DROP TEMPORARY TABLE IF EXISTS mum_mum_catalog_items;
 START TRANSACTION;
 
 SET @mum_mum_dim_sum_id = (
@@ -24,7 +25,7 @@ CREATE TEMPORARY TABLE mum_mum_catalog_items (
     name VARCHAR(100) NOT NULL,
     legacy_name VARCHAR(100),
     sort_order INT NOT NULL
-);
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO mum_mum_catalog_items (name, legacy_name, sort_order) VALUES
     ('Prawn Siew Mai', 'Prawn Siew Mai 198g x 24pkts', 1),
@@ -36,7 +37,9 @@ UPDATE products p
 JOIN brands b ON b.id = p.brand_id
 JOIN subcategories sc ON sc.id = @mum_mum_dim_sum_id AND sc.category_id = p.category_id
 JOIN mum_mum_catalog_items item
-    ON p.name IN (item.name, item.legacy_name, CONCAT('Mum Mum ', item.name), CONCAT('Mum Mum ', item.legacy_name))
+    ON CONVERT(p.name USING utf8mb4) COLLATE utf8mb4_unicode_ci IN (
+        item.name, item.legacy_name, CONCAT('Mum Mum ', item.name), CONCAT('Mum Mum ', item.legacy_name)
+    )
 SET p.name = item.name,
     p.image_url = CONCAT('products/Frozen Food/Dim Sum/Mum Mum/', item.name, '.webp'),
     p.brand_id = @mum_mum_brand_id,
@@ -53,7 +56,8 @@ JOIN subcategories sc ON sc.id = @mum_mum_dim_sum_id
 WHERE @mum_mum_brand_id IS NOT NULL
   AND NOT EXISTS (
       SELECT 1 FROM products p
-      WHERE p.brand_id = @mum_mum_brand_id AND p.category_id = sc.category_id AND p.name = item.name
+      WHERE p.brand_id = @mum_mum_brand_id AND p.category_id = sc.category_id
+        AND CONVERT(p.name USING utf8mb4) COLLATE utf8mb4_unicode_ci = item.name
   );
 
 DROP TEMPORARY TABLE mum_mum_catalog_items;

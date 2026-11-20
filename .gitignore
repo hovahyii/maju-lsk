@@ -17,6 +17,7 @@ node_modules/
 !/catalog/add-andong-taekyung-food.sql
 !/catalog/add-jimart-green-house.sql
 !/catalog/add-jimart-agromas.sql
+!/catalog/add-jimart-interflour.sql
 !/catalog/add-jimart-samyang-ramen.sql
 !/catalog/add-jimart-samyang-noodles-pasta-sauces.sql
 !/catalog/update-andong-michigan-pizzas.sql

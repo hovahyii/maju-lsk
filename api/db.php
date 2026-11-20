@@ -6,6 +6,7 @@ const AVAILABLE_PRODUCT_SQL = "p.is_active = 1 AND NOT EXISTS (
       AND (
           LOWER(discontinued.slug) = 'visvita'
           OR LOWER(discontinued.name) = 'visvita'
+          OR LOWER(discontinued.slug) = 'm-s'
           OR (
               (LOWER(discontinued.slug) = 'arbella' OR LOWER(discontinued.name) = 'arbella')
               AND LOWER(TRIM(p.name)) = 'pasta'

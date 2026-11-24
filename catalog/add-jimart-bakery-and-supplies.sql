@@ -91,7 +91,7 @@ VALUES
     ('redman', 'dairy', 'butter', 'Unsalted Creamery Butter', NULL, 'redman', 'dairy', 'butter', 'products/Dairy/Butter/Redman/Workbook Photos/Unsalted Creamery Butter.webp', 2),
     ('redman', 'dairy', 'butter', 'Salted Creamery Butter', NULL, 'redman', 'dairy', 'butter', 'products/Dairy/Butter/Redman/Workbook Photos/Salted Creamery Butter.webp', 3),
     ('ever-whip', 'dairy', 'cream', 'V Non-Dairy Whipping Cream', NULL, 'ever-whip', 'dairy', 'cream', 'products/Dairy/Cream/Ever-Whip/Workbook Photos/V Non-Dairy Whipping Cream.webp', 4),
-    ('ever-whip', 'dairy', 'cream', 'Non-Dairy Whip Topping Cream', NULL, 'ever-whip', 'dairy', 'cream', 'products/Dairy/Cream/Ever-Whip/Workbook Photos/Non-Dairy Whip Topping Cream.webp', 5),
+    ('redman', 'dairy', 'cream', 'Non-Dairy Whipping Cream (Whip Topping)', 'Non-Dairy Whip Topping Cream', 'ever-whip', 'dairy', 'cream', 'products/Dairy/Cream/Ever-Whip/Workbook Photos/Non-Dairy Whip Topping Cream.webp', 5),
     ('ever-whip', 'dairy', 'cream', 'AS Non-Dairy Whipping Cream', NULL, 'ever-whip', 'dairy', 'cream', 'products/Dairy/Cream/Ever-Whip/Workbook Photos/AS Non-Dairy Whipping Cream.webp', 6),
     ('green-house', 'dairy', 'cream', 'Macreme Non-Dairy Topping Cream', NULL, 'green-house', 'dairy', 'cream', 'products/Dairy/Cream/Green House/Workbook Photos/Macreme Non-Dairy Topping Cream.webp', 7),
     ('star-brand', 'flour', 'starch', 'Sago Starch', NULL, 'star-brand', 'flour', 'starch', 'products/Flour/Starch/Star Brand/Workbook Photos/Sago Starch.webp', 8),

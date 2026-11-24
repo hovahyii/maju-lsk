@@ -508,14 +508,14 @@ function loadProducts(filters = {}) {
         const normalizedSrc = originalSrc
           ? originalSrc.replace(/Caf(?:%C3%A9|é)/gi, 'Cafe')
           : '';
-        img.src = originalSrc || '';
+        const encodeImagePath = src => src.replace(/%(?![0-9a-f]{2})/gi, '%25');
+        const sources = [...new Set([originalSrc, normalizedSrc].filter(Boolean).map(encodeImagePath)), 'logo.webp'];
+        let sourceIndex = 0;
         img.onerror = () => {
-          if (normalizedSrc && img.src !== normalizedSrc) {
-            img.src = normalizedSrc;
-          } else {
-            img.src = 'logo/logo.webp';
-          }
+          sourceIndex += 1;
+          if (sourceIndex < sources.length) img.src = sources[sourceIndex];
         };
+        img.src = sources[sourceIndex];
         imgWrap.appendChild(img);
 
         const body = document.createElement('div');
